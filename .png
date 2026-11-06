@@ -21,7 +21,7 @@
         <!-- Proyecto 1: Panzerdrifter -->
         <div class="slide">
           <div class="image-wrapper">
-            <img src="assets/panzerdrifter.jpg" alt="Panzerdrifter" />
+            <img src="assets/PanzerdrifterCaptura.png" alt="Panzerdrifter" />
             <span class="arrow-left">←</span>
             <span class="arrow-right">→</span>
           </div>
@@ -34,7 +34,7 @@
         <!-- Proyecto 2: Mentirosos -->
         <div class="slide">
           <div class="image-wrapper">
-            <img src="assets/mentirosos.jpg" alt="Mentirosos" />
+            <img src="assets/MentirososCaptura.png" alt="Mentirosos" />
             <span class="arrow-left">←</span>
             <span class="arrow-right">→</span>
           </div>
@@ -47,7 +47,7 @@
         <!-- Proyecto 3: Teeny Tiny Squids -->
         <div class="slide">
           <div class="image-wrapper">
-            <img src="assets/teenysquids.jpg" alt="Teeny Tiny Squids Invasion" />
+            <img src="assets/TTSICaptura.png" alt="Teeny Tiny Squids Invasion" />
             <span class="arrow-left">←</span>
             <span class="arrow-right">→</span>
           </div>
@@ -60,7 +60,7 @@
         <!-- Proyecto 4: Bar Espacial -->
         <div class="slide">
           <div class="image-wrapper">
-            <img src="assets/barespacial.jpg" alt="Bar Espacial" />
+            <img src="assets/BarEspacialCaptura.png" alt="Bar Espacial" />
             <span class="arrow-left">←</span>
             <span class="arrow-right">→</span>
           </div>
@@ -87,7 +87,7 @@
   <!-- SECTION 02: SOBRE MÍ -->
   <section id="sobre-mi" class="about">
     <div class="profile-photo">
-      <img src="assets/foto-israel.jpg" alt="Ismael Pérez" />
+      <img src="assets/ImagenIsmael.png" alt="Ismael Pérez" />
       <span class="name-tag">ISMAEL / GAME DESIGNER</span>
     </div>
     <div class="about-text">
