@@ -1,0 +1,397 @@
+/* ============================================
+   VARIABLES & RESET
+============================================= */
+:root {
+  --pink: #ff0069;
+  --black: #111;
+  --dark-gray: #1a1a1a;
+  --light-gray: #555;
+  --green-neon: #96ff00;
+  --yellow-neon: #ccff00;
+  --off-white: #f4f4f4;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background-color: var(--off-white);
+  color: var(--black);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ============================================
+   UTILIDADES
+============================================= */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+h1, h2, h3 {
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+span {
+  color: var(--pink);
+}
+
+/* ============================================
+   SECTION 01: INICIO
+============================================= */
+#inicio {
+  position: relative;
+  background-color: #111;
+  padding-bottom: 4rem;
+}
+
+.hero h1 {
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  letter-spacing: -0.03em;
+  margin-bottom: 2rem;
+}
+
+.subtext {
+  color: #999;
+  font-size: 1.1rem;
+  max-width: 60ch;
+  margin-top: 1rem;
+}
+
+/* SLIDER */
+.slider-container {
+  position: relative;
+  margin-top: 4rem;
+  overflow: hidden;
+}
+
+#project-slider {
+  display: flex;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.slide {
+  min-width: 100%;
+  position: relative;
+  cursor: pointer;
+}
+
+.image-wrapper {
+  position: relative;
+}
+
+.slide img {
+  width: 100vw;
+  height: auto;
+  max-height: 60vh;
+  object-fit: cover;
+  filter: grayscale(100%) contrast(1.2);
+  transition: filter 0.5s ease;
+}
+
+.slide:hover img {
+  filter: grayscale(0%);
+}
+
+.arrow-left, .arrow-right {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  color: var(--pink);
+  cursor: pointer;
+  z-index: 10;
+}
+
+.arrow-left { left: -30px; }
+.arrow-right { right: -30px; }
+
+/* NAVBAR */
+.navbar {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  backdrop-filter: blur(8px);
+}
+
+.nav-link {
+  color: #999;
+  text-decoration: none;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  transition: color 0.3s ease;
+}
+
+.nav-link.active, .nav-link:hover {
+  color: var(--pink);
+}
+
+/* SCROLL INDICATOR */
+.scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.8rem;
+  color: #777;
+}
+
+/* ============================================
+   SECTION 02: SOBRE MÍ
+============================================= */
+#sobre-mi {
+  background-color: var(--off-white);
+  padding: 6rem 0;
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 4rem;
+}
+
+.profile-photo {
+  position: relative;
+}
+
+.profile-photo img {
+  width: 100%;
+  border-radius: 8px;
+  filter: grayscale(100%);
+  transition: filter 0.5s ease;
+}
+
+.profile-photo:hover img {
+  filter: grayscale(0%);
+}
+
+.name-tag {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  background-color: var(--yellow-neon);
+  padding: 0.3rem 0.6rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+.about-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.chapter-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: #777;
+  margin-bottom: 1rem;
+}
+
+.about-text h1 {
+  font-size: clamp(2.5rem, 7vw, 4rem);
+  line-height: 1;
+  margin-bottom: 2rem;
+}
+
+.about-text p {
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.subtext {
+  margin-top: 1rem;
+}
+
+/* ============================================
+   SECTION 03: CV + CAPABILITIES
+============================================= */
+#cv {
+  background-color: var(--black);
+  color: #ccc;
+  padding: 6rem 0;
+  font-family: 'Courier New', monospace;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 4rem;
+}
+
+.main-title {
+  font-size: clamp(2.5rem, 7vw, 4.5rem);
+  line-height: 0.9;
+}
+
+.download-button {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid #333;
+  padding: 1rem 1.5rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+}
+
+.download-button span:last-child {
+  color: #666;
+  margin-left: 0.5rem;
+}
+
+/* EXPERIENCE */
+.experience {
+  border-bottom: 1px solid #222;
+  padding-bottom: 3rem;
+  margin-bottom: 3rem;
+}
+
+.exp-item {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.year {
+  font-size: 0.8rem;
+  width: 150px;
+  color: #777;
+}
+
+.content h3 {
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.content p {
+  color: #999;
+  font-size: 0.95rem;
+}
+
+/* TOOLKIT */
+.toolkit {
+  border-top: 1px solid #222;
+  padding-top: 3rem;
+}
+
+.toolkit h3, .toolkit h4 {
+  color: #fff;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+}
+
+.skill-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.progress-bar {
+  flex-grow: 1;
+  height: 6px;
+  background: #333;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  background-color: var(--pink);
+}
+
+.special-interest, .capacidades {
+  margin-top: 2.5rem;
+  color: var(--yellow-neon);
+  font-size: 0.8rem;
+}
+
+.special-interest p, .capacidades p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.capacidades p {
+  margin-top: 0.5rem;
+}
+
+/* SOFTWARE GRID */
+.software-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 3rem;
+}
+
+.software-grid span {
+  background: #1a1a1a;
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  border: 1px solid #333;
+}
+
+/* ============================================
+   SECTION 04: CONTACTO
+============================================= */
+#contacto {
+  background-color: var(--pink);
+  padding: 6rem 2rem;
+  text-align: center;
+}
+
+.contact h1 {
+  font-size: clamp(3rem, 8vw, 5rem);
+  line-height: 1;
+  margin-bottom: 4rem;
+}
+
+.email-button {
+  display: inline-flex;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #000;
+  padding: 1.5rem 2rem;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+}
+
+.email-button:hover {
+  background: #f9f9f9;
+}
+
+/* ============================================
+   RESPONSIVE
+============================================= */
+@media (max-width: 768px) {
+  #sobre-mi {
+    grid-template-columns: 1fr;
+  }
+
+  .experience {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .exp-item {
+    flex-direction: column;
+  }
+
+  .year {
+    width: 100%;
+  }
+}
