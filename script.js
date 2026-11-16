@@ -156,7 +156,8 @@ const projectData = {
     description: 'Un bar futurista en una estación espacial donde cada rincón cuenta una historia. Exploración de atmósferas y narrativa ambiental.',
     image: 'assets/BarEspacialCaptura.png',
     gddLink: null,
-    itchLink: null
+    itchLink: null,
+    artstationLink: 'https://www.artstation.com/ismaelperezrodriguez'
   }
 };
 
@@ -172,8 +173,11 @@ function openModal(projectId) {
   const itchButton = data.itchLink
     ? `<a href="${data.itchLink}" target="_blank" rel="noopener noreferrer" class="btn-modal btn-itch">Jugar en itch.io ↗</a>`
     : '';
-  const actionsBlock = (gddButton || itchButton)
-    ? `<div class="modal-actions">${gddButton}${itchButton}</div>`
+  const artstationButton = data.artstationLink
+    ? `<a href="${data.artstationLink}" target="_blank" rel="noopener noreferrer" class="btn-modal btn-itch">Ver más en ArtStation ↗</a>`
+    : '';
+  const actionsBlock = (gddButton || itchButton || artstationButton)
+    ? `<div class="modal-actions">${gddButton}${itchButton}${artstationButton}</div>`
     : '';
 
   modalOverlay.innerHTML = `

@@ -88,7 +88,8 @@ h1, h2, h3 {
 }
 
 /* FIX: Flechas correctamente posicionadas en desktop y móvil */
-.arrow-left, .arrow-right {
+.arrow-left,
+.arrow-right {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -101,16 +102,16 @@ h1, h2, h3 {
   padding: 0.8rem 1.2rem;
   border: 1px solid var(--pink);
   transition: all 0.3s ease;
-  left: 1.5rem;
-  right: 1.5rem;
 }
 
 .arrow-left {
-  left: auto;
+  left: 1.5rem;
+  right: auto;
 }
 
 .arrow-right {
-  right: auto;
+  right: 1.5rem;
+  left: auto;
 }
 
 .arrow-left:hover, .arrow-right:hover {
@@ -329,6 +330,9 @@ h1, h2, h3 {
 
 .profile-photo img {
   width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: center top;
   border-radius: 8px;
   filter: grayscale(100%);
   transition: filter 0.5s ease;
