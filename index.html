@@ -79,8 +79,8 @@
       <a href="#contacto" class="nav-link">CONTACTO</a>
     </nav>
 
-    <!-- SCROLL TEXT -->
-    <div class="scroll-indicator">Scroll to explore</div>
+    <!-- SCROLL TEXT (ELIMINADO SEGÚN INSTRUCCIONES) -->
+    <!-- <div class="scroll-indicator">Scroll to explore</div> -->
   </section>
 
   <!-- SECTION 02: SOBRE MÍ -->
@@ -103,7 +103,9 @@
   <section id="cv" class="cv">
     <div class="header">
       <h1 class="main-title">Lo que llevo<br><span class="accent">a la mesa.</span></h1>
-      <div class="download-button">
+      
+      <!-- FIX: Botón de descarga con enlace real a PDF -->
+      <div class="download-button" id="download-cv-btn">
         <span>Descargar CV</span>
         <span>PDF · próximamente</span>
       </div>
@@ -186,7 +188,8 @@
 
   <!-- SECTION 04: CONTACTO - REDESIGNADO -->
   <section id="contacto" class="contact">
-    <p class="chapter-label">CONTACTO</p>
+    <!-- FIX: Eliminada etiqueta chapter-label duplicada -->
+    
     <h1>CONTACTO<br><span class="accent">Hablemos de proyectos.</span></h1>
 
     <!-- Email principal funcional -->
@@ -197,9 +200,7 @@
     </a>
 
     <!-- Botón copiar correo (opcional) -->
-    <div class="email-copy-button" onclick="copyEmail()">
-      <span>Copiar email</span>
-    </div>
+    <button type="button" id="copy-email-btn" class="email-copy-button">Copiar email</button>
   </section>
 
   <script src="script.js"></script>

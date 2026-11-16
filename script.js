@@ -122,7 +122,7 @@ slides.forEach(slide => {
 });
 
 // ============================================
-// MODAL FUNCTIONALITY
+// MODAL FUNCTIONALITY - COMPLETO CON IMAGEN Y BOTONES
 // ============================================
 
 const projectData = {
@@ -130,25 +130,33 @@ const projectData = {
     title: 'PANZERDRIFTER',
     meta: 'Combat racing · 1º año',
     description: 'Carreras de tanques en un desierto egipcio: derrapa, apuntas y llegas antes que tus rivales.',
-    gddLink: null
+    image: 'assets/PanzerdrifterCaptura.png',
+    gddLink: null,
+    itchLink: null
   },
   '02': {
     title: 'MENTIROSOS',
     meta: 'Card game · 2º año',
     description: 'Un juego de cartas donde la verdad es relativa y cada jugador debe convencer a los demás de su mentira más creativa.',
-    gddLink: null
+    image: 'assets/MentirososCaptura.png',
+    gddLink: null,
+    itchLink: null
   },
   '03': {
     title: 'TEENY TINY SQUIDS INVASION',
     meta: 'Tower defense · 3º año',
     description: 'Defiende la playa contra una invasión de pulpos miniatura con torres temáticas y estrategias únicas.',
-    gddLink: null
+    image: 'assets/TTSICaptura.png',
+    gddLink: null,
+    itchLink: null
   },
   '04': {
     title: 'BAR ESPACIAL',
     meta: 'Proyecto individual · TFC',
     description: 'Un bar futurista en una estación espacial donde cada rincón cuenta una historia. Exploración de atmósferas y narrativa ambiental.',
-    gddLink: null
+    image: 'assets/BarEspacialCaptura.png',
+    gddLink: null,
+    itchLink: null
   }
 };
 
@@ -160,19 +168,44 @@ function openModal(projectId) {
   const data = projectData[projectId];
   if (!data) return;
   
+  // Cerrar modal primero para limpiar estado
+  closeModal();
+  
+  // Crear contenido del modal
   let modalContent = document.getElementById('project-modal-content');
   
   if (!modalContent) {
     modalContent = document.createElement('div');
     modalContent.id = 'project-modal-content';
     modalOverlay.appendChild(modalContent);
+    
+    // Botón cerrar
+    const closeBtn = document.createElement('button');
+    closeBtn.className = 'modal-close-btn';
+    closeBtn.innerHTML = '&times;';
+    closeBtn.setAttribute('aria-label', 'Cerrar');
+    closeBtn.addEventListener('click', closeModal);
+    modalContent.appendChild(closeBtn);
   }
   
+  // Renderizar contenido completo con imagen y botones
   modalContent.innerHTML = `
-    <button class="modal-close-btn" aria-label="Cerrar">&times;</button>
     <div class="modal-title">${data.title}</div>
     <div class="modal-meta">${data.meta}</div>
     <div class="modal-description">${data.description}</div>
+    
+    <!-- Contenedor de botones de acción -->
+    <div class="modal-actions">
+      ${data.gddLink 
+        ? `<a href="${data.gddLink}" target="_blank" download class="btn-modal btn-gdd">Descargar GDD (PDF)</a>`
+        : `<span class="btn-modal btn-gdd-disabled">GDD próximamente</span>`
+      }
+      
+      ${data.itchLink 
+        ? `<a href="${data.itchLink}" target="_blank" rel="noopener noreferrer" class="btn-modal btn-itch">Jugar en itch.io ↗</a>`
+        : ''
+      }
+    </div>
   `;
   
   modalOverlay.classList.add('active');
@@ -225,6 +258,47 @@ slides.forEach(slide => {
     });
   }
 });
+
+// ============================================
+// COPIAR EMAIL FUNCIONAL
+// ============================================
+const copyEmailBtn = document.getElementById('copy-email-btn');
+if (copyEmailBtn) {
+  copyEmailBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText('ismaeluniperez@gmail.com').then(() => {
+      const originalText = copyEmailBtn.textContent;
+      copyEmailBtn.textContent = '¡Correo copiado!';
+      copyEmailBtn.style.borderColor = '#96ff00';
+      copyEmailBtn.style.color = '#96ff00';
+      setTimeout(() => {
+        copyEmailBtn.textContent = originalText;
+        copyEmailBtn.style.borderColor = '';
+        copyEmailBtn.style.color = '';
+      }, 2000);
+    });
+  });
+}
+
+// ============================================
+// ANIMACIÓN BARRAS HABILIDADES SCROLL - IntersectionObserver
+// ============================================
+const toolkitSection = document.querySelector('.toolkit');
+if (toolkitSection) {
+  const toolkitObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Animar todas las barras cuando la sección entra en pantalla
+        const fills = document.querySelectorAll('.fill');
+        fills.forEach(fill => {
+          fill.style.width = fill.dataset.width;
+        });
+        toolkitObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.25 }); // Se activa cuando el 25% de la sección es visible
+  
+  toolkitObserver.observe(toolkitSection);
+}
 
 // ============================================
 // NAVBAR ACTIVE LINKS
@@ -293,14 +367,6 @@ const resizeSlider = () => {
 window.addEventListener('resize', resizeSlider);
 
 // ============================================
-// PREVENT FLICKER ON MODAL OPEN/CLOSE
-// ============================================
-let modalAnimating = false;
-modalOverlay.addEventListener('transitionend', () => {
-  modalAnimating = false;
-});
-
-// ============================================
 // OPTIMIZACIÓN DE IMÁGENES PARA MOVIL
 // ============================================
 const images = document.querySelectorAll('img');
@@ -312,4 +378,4 @@ images.forEach(img => {
 });
 
 console.log('Portfolio de Ismael Pérez - Game Designer');
-console.log('Modales y slider funcionales | Diseño responsive completo');
+console.log('Modales y slider funcionales | Diseño responsive completo | Animación barras habilidades');

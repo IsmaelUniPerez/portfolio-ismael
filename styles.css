@@ -24,7 +24,7 @@ html {
 
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  background-color: var(--off-white);
+  background-color: #111; /* FIX: fondo negro para evitar franjas blancas */
   color: var(--black);
   line-height: 1.6;
   overflow-x: hidden;
@@ -33,11 +33,6 @@ body {
 /* ============================================
    UTILIDADES
 ============================================= */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
 
 h1, h2, h3 {
   font-weight: 700;
@@ -63,6 +58,8 @@ h1, h2, h3 {
   padding-top: 5rem;
   padding-bottom: 8rem;
   min-height: 100vh;
+  padding-left: 5%; /* FIX: sangría lateral responsive */
+  padding-right: 5%;
 }
 
 .hero h1 {
@@ -248,8 +245,8 @@ h1, h2, h3 {
 
 .modal-title {
   font-size: clamp(2rem, 5vw, 3rem);
-  line-height: 1;
   color: #fff;
+  line-height: 1;
   margin-bottom: 0.5rem;
 }
 
@@ -376,6 +373,8 @@ h1, h2, h3 {
   color: #ccc;
   padding: 6rem 0;
   font-family: 'Courier New', monospace;
+  padding-left: 5%; /* FIX: sangría lateral responsive */
+  padding-right: 5%;
 }
 
 .header {
@@ -393,13 +392,24 @@ h1, h2, h3 {
 
 /* FIX: Botón de descarga con hover visible */
 .download-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid #333;
   padding: 1rem 1.5rem;
   font-size: 0.8rem;
   letter-spacing: 0.05em;
   color: #ccc;
-  cursor: not-allowed; /* пока disabled */
+  cursor: pointer; /* FIX: ahora interactivo */
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.download-button:hover {
+  border-color: var(--pink);
+  background: rgba(255, 0, 105, 0.12);
+  color: #fff;
 }
 
 .download-button span:last-child {
@@ -467,6 +477,7 @@ h1, h2, h3 {
 .fill {
   height: 100%;
   width: 0%; /* INICIO en 0% para animación */
+  background-color: var(--pink); /* FIX: ahora se ven las barras llenas */
   transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -509,6 +520,9 @@ h1, h2, h3 {
   padding: 6rem 2rem;
   text-align: center;
   border-top: 1px solid #222; /* BORDE SUPERIOR SUTIL */
+  padding-left: 5%; /* FIX: sangría lateral responsive */
+  padding-right: 5%;
+  padding-bottom: 8rem; /* FIX: espacio para navbar flotante */
 }
 
 .contact h1 {
@@ -551,6 +565,11 @@ h1, h2, h3 {
   color: #fff;
   cursor: pointer;
   transition: all 0.3s ease;
+  display: inline-block;
+  width: auto;
+  max-width: 240px;
+  border-radius: 6px;
+  font-size: 0.9rem;
 }
 
 .email-copy-button:hover {
@@ -569,6 +588,15 @@ h1, h2, h3 {
   #inicio, #sobre-mi, #cv, #contacto {
     padding-left: clamp(1.25rem, 5vw, 3rem);
     padding-right: clamp(1.25rem, 5vw, 3rem);
+  }
+  
+  #sobre-mi {
+    grid-template-columns: 1fr; /* FIX: apilar en móvil */
+  }
+  
+  .profile-photo {
+    max-width: 350px;
+    margin: 0 auto; /* FIX: centrado en móvil */
   }
 }
 
