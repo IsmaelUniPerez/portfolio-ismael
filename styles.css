@@ -52,7 +52,7 @@ h1, h2, h3 {
 }
 
 /* ============================================
-   SECCIÓN 01: INICIO
+   SECCIÓN 01: INICIO - TÍTULO PRINCIPAL VISIBLE
 ============================================= */
 #inicio {
   position: relative;
@@ -64,11 +64,15 @@ h1, h2, h3 {
   padding-right: 5%;
 }
 
+/* FIX: Título principal siempre visible en blanco */
 .hero h1 {
   font-size: clamp(2.5rem, 6vw, 5rem);
   letter-spacing: -0.03em;
   margin-bottom: 2rem;
   color: #ffffff;
+  opacity: 1;
+  visibility: visible;
+  display: block;
 }
 
 .subtext {
@@ -622,7 +626,54 @@ h1, h2, h3 {
 }
 
 /* ============================================
-   RESPONSIVE GENERAL - CORREGIDO
+   NAVBAR FIJA INFERIOR - VISIBLE SIEMPRE
+============================================= */
+.navbar {
+  position: fixed;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  background: rgba(17, 17, 17, 0.92);
+  padding: 0.8rem 1.4rem;
+  border-radius: 50px;
+  backdrop-filter: blur(8px);
+  z-index: 2000;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  max-width: calc(100vw - 1.5rem);
+}
+
+.nav-link {
+  color: #999;
+  text-decoration: none;
+  font-size: clamp(0.75rem, 2vw, 0.85rem);
+  letter-spacing: 1px;
+  transition: color 0.3s ease;
+  white-space: nowrap;
+}
+
+.nav-link.active, .nav-link:hover {
+  color: var(--pink);
+}
+
+/* Botón de idioma visible en navbar */
+.lang-btn {
+  background: #ff0069;
+  color: #ffffff;
+  border: none;
+  border-radius: 20px;
+  padding: 0.3rem 0.65rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* ============================================
+   RESPONSIVE GENERAL - FIX CORTE/MOBIL
 ============================================= */
 #inicio, #sobre-mi, #cv, #contacto {
   padding-left: clamp(1.25rem, 5vw, 4rem);
@@ -646,59 +697,29 @@ h1, h2, h3 {
 }
 
 /* ============================================
-   NAVBAR RESPONSIVE - CORREGIDO SEGÚN HANDOFF
+   NAVBAR RESPONSIVE - MOBIL < 768px
 ============================================= */
-.navbar {
-  position: fixed;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 1.5rem;
-  background: rgba(17, 17, 17, 0.85);
-  padding: 1rem 2rem;
-  border-radius: 50px;
-  backdrop-filter: blur(8px);
-  z-index: 1000;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-.nav-link {
-  color: #999;
-  text-decoration: none;
-  font-size: clamp(0.75rem, 2vw, 0.85rem);
-  letter-spacing: 1px;
-  transition: color 0.3s ease;
-  white-space: nowrap;
-}
-
-.nav-link.active, .nav-link:hover {
-  color: var(--pink);
-}
-
-/* Navbar móvil - CORREGIDO con medidas del handoff */
 @media (max-width: 768px) {
   .navbar {
-    width: calc(100% - 1.5rem);
-    max-width: 440px;
-    justify-content: space-around;
-    gap: 0.4rem;
+    width: calc(100% - 1rem);
+    justify-content: space-between;
+    gap: 0.35rem;
     padding: 0.65rem 0.75rem;
   }
-
+  
   .nav-link {
-    font-size: 0.65rem;
-    letter-spacing: 0.5px;
+    font-size: 0.62rem;
+    letter-spacing: 0.3px;
   }
   
   .lang-btn {
-    font-size: 0.65rem;
-    padding: 0.3rem 0.5rem;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.62rem;
   }
 }
 
 /* ============================================
-   MODAL RESPONSIVE - CORREGIDO ANCHO A 100%
+   MODAL RESPONSIVE - ANCHO CORREGIDO A 100%
 ============================================= */
 @media (max-width: 768px) {
   #project-modal {
