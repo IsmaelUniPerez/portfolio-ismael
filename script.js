@@ -128,40 +128,32 @@ slides.forEach(slide => {
 const projectData = {
   '01': {
     title: 'PANZERDRIFTER',
-    meta_es: 'Combat racing · 1º año',
-    meta_en: 'Combat racing · Year 1',
-    description_es: 'Carreras de tanques en un desierto egipcio: derrapa, apuntas y llegas antes que tus rivales.',
-    description_en: 'Tank races in an Egyptian desert: drift, aim and beat your rivals to the finish line.',
+    meta: 'Combat racing · 1º año',
+    description: 'Carreras de tanques en un desierto egipcio: derrapa, apuntas y llegas antes que tus rivales.',
     image: 'assets/PanzerdrifterCaptura.png',
     gddLink: 'assets/GDD-Panzerdrifter.pdf',
     itchLink: null
   },
   '02': {
     title: 'MENTIROSOS',
-    meta_es: 'Card game · 2º año',
-    meta_en: 'Card game · Year 2',
-    description_es: 'Un juego de cartas donde la verdad es relativa y cada jugador debe convencer a los demás de su mentira más creativa.',
-    description_en: 'A card game where truth is relative and each player must convince others of their most creative lie.',
+    meta: 'Card game · 2º año',
+    description: 'Un juego de cartas donde la verdad es relativa y cada jugador debe convencer a los demás de su mentira más creativa.',
     image: 'assets/MentirososCaptura.png',
     gddLink: 'assets/GDD-Mentirosos.pdf',
     itchLink: 'https://ismaeluniperez.itch.io/mentirosos'
   },
   '03': {
     title: 'TEENY TINY SQUIDS INVASION',
-    meta_es: 'Tower defense · 3º año',
-    meta_en: 'Tower defense · Year 3',
-    description_es: 'Defiende la playa contra una invasión de pulpos miniatura con torres temáticas y estrategias únicas.',
-    description_en: 'Defend the beach from an invasion of miniature octopuses with thematic towers and unique strategies.',
+    meta: 'Tower defense · 3º año',
+    description: 'Defiende la playa contra una invasión de pulpos miniatura con torres temáticas y estrategias únicas.',
     image: 'assets/TTSICaptura.png',
     gddLink: 'assets/GDD-TTSI.pdf',
     itchLink: 'https://ismaeluniperez.itch.io/teeny-tiny-squids-invasion'
   },
   '04': {
     title: 'BAR ESPACIAL',
-    meta_es: 'Proyecto individual · TFC',
-    meta_en: 'Individual project · Final Year Capstone',
-    description_es: 'Un bar futurista en una estación espacial donde cada rincón cuenta una historia. Exploración de atmósferas y narrativa ambiental.',
-    description_en: 'A futuristic bar in a space station where every corner tells a story. Atmospheric exploration and environmental storytelling.',
+    meta: 'Proyecto individual · TFC',
+    description: 'Un bar futurista en una estación espacial donde cada rincón cuenta una historia. Exploración de atmósferas y narrativa ambiental.',
     image: 'assets/BarEspacialCaptura.png',
     gddLink: null,
     itchLink: null,
@@ -175,17 +167,15 @@ function openModal(projectId) {
   const data = projectData[projectId];
   if (!data || !modalOverlay) return;
 
-  // CORREGIDO: Usar getTranslatedText() para todos los botones y textos del modal
   const gddButton = data.gddLink
-    ? `<a href="${data.gddLink}" download class="btn-modal btn-gdd">${getTranslatedText('Descargar GDD (PDF)', 'Download GDD (PDF)')}</a>`
+    ? `<a href="${data.gddLink}" download class="btn-modal btn-gdd">Descargar GDD (PDF)</a>`
     : '';
   const itchButton = data.itchLink
-    ? `<a href="${data.itchLink}" target="_blank" rel="noopener noreferrer" class="btn-modal btn-itch">${getTranslatedText('Jugar en itch.io ↗', 'Play on itch.io ↗')}</a>`
+    ? `<a href="${data.itchLink}" target="_blank" rel="noopener noreferrer" class="btn-modal btn-itch">Jugar en itch.io ↗</a>`
     : '';
   const artstationButton = data.artstationLink
-    ? `<a href="${data.artstationLink}" target="_blank" rel="noopener noreferrer" class="btn-modal btn-itch">${getTranslatedText('Ver más en ArtStation ↗', 'View more on ArtStation ↗')}</a>`
+    ? `<a href="${data.artstationLink}" target="_blank" rel="noopener noreferrer" class="btn-modal btn-itch">Ver más en ArtStation ↗</a>`
     : '';
-  
   const actionsBlock = (gddButton || itchButton || artstationButton)
     ? `<div class="modal-actions">${gddButton}${itchButton}${artstationButton}</div>`
     : '';
@@ -198,8 +188,8 @@ function openModal(projectId) {
       </div>
       <div class="modal-content">
         <h2 class="modal-title">${data.title}</h2>
-        <p class="modal-meta">${getTranslatedText(data.meta_es, data.meta_en)}</p>
-        <p class="modal-description">${getTranslatedText(data.description_es, data.description_en)}</p>
+        <p class="modal-meta">${data.meta}</p>
+        <p class="modal-description">${data.description}</p>
         ${actionsBlock}
       </div>
     </div>
@@ -244,20 +234,16 @@ document.addEventListener('keydown', (e) => {
 });
 
 // ============================================
-// RESTAURAR CLICK EN SLIDES PARA ABRIR MODAL
+// OPEN MODAL ON SLIDE CLICK - FIX: solo con click en la imagen, no flechas
 // ============================================
 slides.forEach(slide => {
   const img = slide.querySelector('img');
   
-  // Click en la imagen o slide abre modal - NO INTERFIERE CON FLECHAS
+  // Click en la imagen abre modal
   if (img) {
-    img.addEventListener('click', (e) => {
-      // No hacer nada si el click fue en las flechas
-      const isArrowClick = e.target.closest('.arrow-left') || e.target.closest('.arrow-right');
-      if (!isArrowClick) {
-        const projectId = slide.getAttribute('data-id');
-        openModal(projectId);
-      }
+    img.addEventListener('click', () => {
+      const projectId = slide.getAttribute('data-id');
+      openModal(projectId);
     });
   }
 });
@@ -281,7 +267,7 @@ if (copyEmailBtn) {
         document.body.removeChild(tempInput);
       }
       const originalText = copyEmailBtn.textContent;
-      copyEmailBtn.textContent = getTranslatedText('¡Correo copiado!', 'Email copied!');
+      copyEmailBtn.textContent = '¡Correo copiado!';
       copyEmailBtn.style.borderColor = '#96ff00';
       copyEmailBtn.style.color = '#96ff00';
       setTimeout(() => {
@@ -386,403 +372,15 @@ const resizeSlider = () => {
 window.addEventListener('resize', resizeSlider);
 
 // ============================================
-// SYSTEM BILINGÜE ES/EN - CORREGIDO: Default Español, sin mezclas
+// OPTIMIZACIÓN DE IMÁGENES PARA MOVIL
 // ============================================
-
-const langBtn = document.getElementById('lang-toggle');
-let currentLang = localStorage.getItem('portfolio_lang') || 'es'; // Default es español
-
-// Diccionario de traducciones completo
-const translations = {
-  // NAVBAR
-  nav_home_es: 'INICIO',
-  nav_home_en: 'HOME',
-  nav_about_es: 'SOBRE MÍ',
-  nav_about_en: 'ABOUT ME',
-  nav_cv_es: 'CV + CAPABILITIES',
-  nav_cv_en: 'CV + CAPABILITIES',
-  nav_contact_es: 'CONTACTO',
-  nav_contact_en: 'CONTACT',
+const images = document.querySelectorAll('img');
+images.forEach(img => {
+  const parent = img.parentElement;
   
-  // HERO
-  hero_title_es: 'JUGADOR Y<br><span>DISEÑADOR</span><br>JUNTOS PARA<br><span>CREAR MUNDOS</span><br><span class="accent large">INCREÍBLES.</span>',
-  hero_title_en: 'PLAYER AND<br><span>DESIGNER</span><br>TOGETHER TO<br><span>CREATE INCREDIBLE</span><br><span class="accent large">WORLDS.</span>',
-  
-  subtext_es: 'Diseño sistemas, espacios y relatos para que cada jugador encuentre su propia forma de habitarlos.',
-  subtext_en: 'I design systems, spaces, and narratives so every player can find their own way to inhabit them.',
-  
-  // SLIDER SUBTITLES
-  slide_01_meta_es: 'Combat racing · 1º año',
-  slide_01_meta_en: 'Combat racing · Year 1',
-  slide_02_meta_es: 'Card game · 2º año',
-  slide_02_meta_en: 'Card game · Year 2',
-  slide_03_meta_es: 'Tower defense · 3º año',
-  slide_03_meta_en: 'Tower defense · Year 3',
-  slide_04_meta_es: 'Proyecto individual · TFC',
-  slide_04_meta_en: 'Individual project · Final Year Capstone',
-  
-  // MODAL BUTTONS (ya usados en openModal con getTranslatedText)
-  btn_gdd_es: 'Descargar GDD (PDF)',
-  btn_gdd_en: 'Download GDD (PDF)',
-  btn_itch_es: 'Jugar en itch.io ↗',
-  btn_itch_en: 'Play on itch.io ↗',
-  btn_artstation_es: 'Ver más en ArtStation ↗',
-  btn_artstation_en: 'View more on ArtStation ↗',
-  
-  // DOWNLOAD CV BUTTONS
-  btn_download_cv_es: 'Descargar CV',
-  btn_download_cv_en: 'Download CV',
-  btn_artstation_port_es: 'Portfolio 3D ↗',
-  btn_artstation_port_en: '3D Portfolio ↗',
-  
-  // SOBRE MÍ SECTION
-  chapter_label_es: 'SOBRE MÍ',
-  chapter_label_en: 'ABOUT ME',
-  about_title_es: 'Diseñar es<br><span class="accent">hacer preguntas</span><br>con forma.',
-  about_title_en: 'Designing is<br><span class="accent">asking questions</span><br>with form.',
-  about_bio_es: 'Soy Ismael Pérez, diseñador de videojuegos de 23 años. Me interesa convertir ideas en sistemas jugables claros, con espacio para la sorpresa y la expresión del jugador.',
-  about_bio_en: 'I am Ismael Pérez, a 23-year-old game designer. I am interested in turning ideas into clear playable systems, with space for surprise and player expression.',
-  about_subtext_es: 'Cursando 4º de Diseño de Videojuegos en la Universidad Europea de Madrid y disponible para nuevos proyectos.',
-  about_subtext_en: 'Currently in my 4th year of Game Design at Universidad Europea de Madrid and available for new projects.',
-  
-  // CV SECTION
-  cv_title_es: 'Lo que llevo<br><span class="accent">a la mesa.</span>',
-  cv_title_en: 'What I bring<br><span class="accent">to the table.</span>',
-  exp_2022_year_es: '2022',
-  exp_2022_year_en: '2022',
-  exp_2022_title_es: 'Prácticas de diseño',
-  exp_2022_title_en: 'Design internship',
-  exp_2022_company_es: 'Creative Rainbow',
-  exp_2022_company_en: 'Creative Rainbow',
-  exp_2022_desc_es: 'Prácticas realizadas para completar el CFGS de Animaciones 3D, Juegos y Entornos Interactivos.',
-  exp_2022_desc_en: 'Internship completed to finish CFGS in 3D Animation, Games and Interactive Environments.',
-  exp_current_year_es: 'En curso',
-  exp_current_year_en: 'In progress',
-  exp_current_title_es: 'Grado en Diseño de Videojuegos',
-  exp_current_title_en: "Bachelor's Degree in Game Design",
-  exp_current_company_es: 'Universidad Europea de Madrid · 4º año',
-  exp_current_company_en: 'Universidad Europea de Madrid · Year 4',
-  exp_current_desc_es: 'Diseño de sistemas, niveles, UX y documentación de proyectos jugables.',
-  exp_current_desc_en: 'Systems design, level design, UX and documentation of playable projects.',
-  exp_completed_year_es: 'Completado',
-  exp_completed_year_en: 'Completed',
-  exp_completed_title_es: 'CFGS Animaciones 3D',
-  exp_completed_title_en: 'CFGS 3D Animation',
-  exp_completed_company_es: 'Juegos y Entornos Interactivos',
-  exp_completed_company_en: 'Games and Interactive Environments',
-  exp_completed_desc_es: 'Formación en creación de entornos, animación y producción interactiva.',
-  exp_completed_desc_en: 'Training in environment creation, animation and interactive production.',
-  
-  // SKILLS
-  toolkit_title: 'Toolkit / always learning',
-  skill_diseño_sistemas_es: 'Diseño de sistemas',
-  skill_diseño_sistemas_en: 'Systems Design',
-  skill_niveles_es: 'Diseño de niveles',
-  skill_niveles_en: 'Level Design',
-  skill_prototipado_es: 'Prototipado',
-  skill_prototipado_en: 'Prototyping',
-  skill_gdd_es: 'Documentación GDD',
-  skill_gdd_en: 'GDD Documentation',
-  
-  // SPECIAL INTEREST
-  special_interest_title_es: 'ESPECIAL INTERÉS',
-  special_interest_title_en: 'SPECIAL INTEREST',
-  special_interest_content_es: 'Worldbuilding y narrativa · Modelado y texturizado 3D · Diseño de juegos · <strong>Artista de Escenarios</strong>',
-  special_interest_content_en: 'Worldbuilding and narrative · 3D Modeling and texturing · Game design · <strong>Level Artist</strong>',
-  
-  // CAPABILITIES
-  capacidades_title_es: 'CAPACIDADES',
-  capacidades_title_en: 'CAPABILITIES',
-  capacidades_content_es: 'Documentación GDD · Programación C# · UX/UI · Mecánicas y sistemas · Animación · Rigging',
-  capacidades_content_en: 'GDD Documentation · C# Programming · UX/UI · Mechanics and systems · Animation · Rigging',
-  
-  // CONTACTO SECTION
-  contacto_title_es: 'CONTACTO<br><span class="accent">Hablemos de proyectos.</span>',
-  contacto_title_en: 'CONTACT<br><span class="accent">Let\'s talk about projects.</span>',
-  
-  // COPY EMAIL BUTTON
-  copy_email_btn_es: 'Copiar email',
-  copy_email_btn_en: 'Copy email',
-  copy_email_success_es: '¡Correo copiado!',
-  copy_email_success_en: 'Email copied!'
-};
-
-function setLanguage(lang) {
-  currentLang = lang;
-  localStorage.setItem('portfolio_lang', lang);
-  
-  // Actualizar botón idioma (muestra EN en español, ES en inglés)
-  if (langBtn) {
-    langBtn.textContent = lang === 'en' ? 'ES' : 'EN';
-  }
-  
-  // Actualizar todos los textos inmediatamente sin mezclar
-  updateAllTexts();
-}
-
-function translateText(textEn) {
-  // Función simple: devuelve texto en español o inglés según currentLang
-  return currentLang === 'en' ? textEn : null; // Para usar como selector
-}
-
-// Selector para obtener versión correcta
-function getTranslatedText(esText, enText) {
-  return currentLang === 'en' ? (enText || esText) : esText;
-}
-
-// Selector simple para botones
-function translateButton(buttonEn) {
-  return currentLang === 'en' ? buttonEn : null;
-}
-
-function updateAllTexts() {
-  // Actualizar navbar - CORREGIDO: Traduce los 4 enlaces correctamente
-  const navLinks = document.querySelectorAll('.nav-link');
-  navLinks.forEach(link => {
-    if (link.getAttribute('data-lang-es')) {
-      const esText = link.getAttribute('data-lang-es');
-      const enText = link.getAttribute('data-lang-en');
-      link.textContent = getTranslatedText(esText, enText);
-    }
-  });
-  
-  // Actualizar hero h1 y subtext
-  const heroTitle = document.querySelector('.hero h1');
-  if (heroTitle) {
-    heroTitle.innerHTML = currentLang === 'es' ? 
-      'JUGADOR Y<br><span>DISEÑADOR</span><br>JUNTOS PARA<br><span>CREAR MUNDOS</span><br><span class="accent large">INCREÍBLES.</span>' :
-      'PLAYER AND<br><span>DESIGNER</span><br>TOGETHER TO<br><span>CREATE INCREDIBLE</span><br><span class="accent large">WORLDS.</span>';
-  }
-  
-  const heroSubtext = document.querySelector('.hero .subtext');
-  if (heroSubtext && heroSubtext.getAttribute('data-lang-es')) {
-    heroSubtext.textContent = getTranslatedText(
-      heroSubtext.getAttribute('data-lang-es'),
-      heroSubtext.getAttribute('data-lang-en')
-    );
-  }
-  
-  // Actualizar slider subtitles
-  const slideTitles = document.querySelectorAll('.slide-info p');
-  slideTitles.forEach(p => {
-    if (p.getAttribute('data-lang-es')) {
-      p.textContent = getTranslatedText(
-        p.getAttribute('data-lang-es'),
-        p.getAttribute('data-lang-en')
-      );
-    }
-  });
-  
-  // Actualizar CV botones de descarga - CORREGIDO: traduce ambos textos
-  const btnCvEs = document.getElementById('btn-download-cv-es');
-  const btnCvEn = document.getElementById('btn-download-cv-en');
-  
-  if (currentLang === 'es') {
-    if (btnCvEs) {
-      btnCvEs.style.display = 'inline-flex';
-      // Asegurar que el texto sea español
-      if (!btnCvEs.textContent.includes('Descargar')) {
-        btnCvEs.querySelector('span').textContent = 'Descargar CV';
-      }
-    }
-    if (btnCvEn) btnCvEn.style.display = 'none';
-  } else {
-    if (btnCvEs) btnCvEs.style.display = 'none';
-    if (btnCvEn) {
-      btnCvEn.style.display = 'inline-flex';
-      // Asegurar que el texto sea inglés
-      if (!btnCvEn.textContent.includes('Download')) {
-        btnCvEn.querySelector('span').textContent = 'Download CV';
-      }
-    }
-  }
-  
-  const artstationBtn = document.querySelector('.artstation-button span:nth-child(2)');
-  if (artstationBtn) {
-    artstationBtn.textContent = getTranslatedText('Portfolio 3D ↗', '3D Portfolio ↗');
-  }
-  
-  // Actualizar sección sobre-mi - CORREGIDO: traduce todos los textos
-  const chapterLabel = document.querySelector('.chapter-label');
-  if (chapterLabel) {
-    chapterLabel.textContent = getTranslatedText(
-      chapterLabel.getAttribute('data-lang-es') || 'SOBRE MÍ',
-      chapterLabel.getAttribute('data-lang-en') || 'ABOUT ME'
-    );
-  }
-  
-  const aboutTitle = document.querySelector('#sobre-mi .about-text h1');
-  if (aboutTitle) {
-    aboutTitle.innerHTML = currentLang === 'es' ? 
-      'Diseñar es<br><span class="accent">hacer preguntas</span><br>con forma.' :
-      'Designing is<br><span class="accent">asking questions</span><br>with form.';
-  }
-  
-  const aboutBio = document.querySelector('#sobre-mi .about-text p:first-of-type');
-  if (aboutBio) {
-    aboutBio.textContent = currentLang === 'es' ? 
-      'Soy Ismael Pérez, diseñador de videojuegos de 23 años. Me interesa convertir ideas en sistemas jugables claros, con espacio para la sorpresa y la expresión del jugador.' :
-      'I am Ismael Pérez, a 23-year-old game designer. I am interested in turning ideas into clear playable systems, with space for surprise and player expression.';
-  }
-  
-  const aboutSubtext = document.querySelector('#sobre-mi .about-text p:last-of-type');
-  if (aboutSubtext) {
-    aboutSubtext.textContent = getTranslatedText(
-      aboutSubtext.getAttribute('data-lang-es') || 'Cursando 4º de Diseño de Videojuegos en la Universidad Europea de Madrid y disponible para nuevos proyectos.',
-      aboutSubtext.getAttribute('data-lang-en') || 'Currently in my 4th year of Game Design at Universidad Europea de Madrid and available for new projects.'
-    );
-  }
-  
-  // Actualizar CV título - CORREGIDO: traduce todos los textos
-  const cvTitle = document.querySelector('#cv .main-title');
-  if (cvTitle) {
-    cvTitle.innerHTML = currentLang === 'es' ? 
-      'Lo que llevo<br><span class="accent">a la mesa.</span>' :
-      'What I bring<br><span class="accent">to the table.</span>';
-  }
-  
-  // Actualizar experiencia en CV - CORREGIDO: traduce todos los textos incluyendo "Completado"/"En curso" y "Juegos y Entornos Interactivos"/"Games and Interactive Environments"
-  const expItems = document.querySelectorAll('.exp-item');
-  expItems.forEach(item => {
-    const year = item.querySelector('.year');
-    const title = item.querySelector('h3');
-    const company = item.querySelector('.content p:first-of-type');
-    const description = item.querySelector('.content p:last-of-type');
-    
-    if (year) {
-      // CORREGIDO: Comprobar AMBOS idiomas y alternar correctamente
-      if (year.textContent === 'En curso' || year.textContent === 'In progress') {
-        year.textContent = currentLang === 'es' ? 'En curso' : 'In progress';
-      }
-      else if (year.textContent === 'Completado' || year.textContent === 'Completed') {
-        year.textContent = currentLang === 'es' ? 'Completado' : 'Completed';
-      }
-    }
-    
-    if (title) {
-      if (title.innerHTML.includes('Prácticas de diseño')) {
-        title.innerHTML = currentLang === 'es' ? 
-          'Prácticas de diseño' : 
-          'Design internship';
-      }
-      else if (title.textContent.includes('Grado en Diseño') || title.textContent.includes("Bachelor's Degree")) {
-        title.textContent = currentLang === 'es' ? 
-          'Grado en Diseño de Videojuegos' :
-          "Bachelor's Degree in Game Design";
-      }
-      else if (title.textContent.includes('CFGS Animaciones') || title.textContent.includes('CFGS 3D Animation')) {
-        title.textContent = currentLang === 'es' ? 
-          'CFGS Animaciones 3D' :
-          'CFGS 3D Animation';
-      }
-    }
-    
-    if (company) {
-      // CORREGIDO: Traduce correctamente "Juegos y Entornos Interactivos" ↔ "Games and Interactive Environments"
-      if (company.textContent.includes('Juegos y Entornos Interactivos') || company.textContent.includes('Games and Interactive Environments')) {
-        company.textContent = currentLang === 'es' ? 
-          'Juegos y Entornos Interactivos' :
-          'Games and Interactive Environments';
-      }
-      else if (company.textContent.includes('4º año') && !company.textContent.includes('Year')) {
-        company.textContent = currentLang === 'es' ? 
-          'Universidad Europea de Madrid · 4º año' :
-          'Universidad Europea de Madrid · Year 4';
-      }
-    }
-    
-    if (description) {
-      if (description.textContent.includes('Prácticas realizadas') || description.textContent.includes('Internship completed')) {
-        description.textContent = currentLang === 'es' ? 
-          'Prácticas realizadas para completar el CFGS de Animaciones 3D, Juegos y Entornos Interactivos.' :
-          'Internship completed to finish CFGS in 3D Animation, Games and Interactive Environments.';
-      }
-      else if (description.textContent.includes('Diseño de sistemas') || description.textContent.includes('Systems design')) {
-        description.textContent = currentLang === 'es' ? 
-          'Diseño de sistemas, niveles, UX y documentación de proyectos jugables.' :
-          'Systems design, level design, UX and documentation of playable projects.';
-      }
-      else if (description.textContent.includes('Formación en creación') || description.textContent.includes('Training in environment')) {
-        description.textContent = currentLang === 'es' ? 
-          'Formación en creación de entornos, animación y producción interactiva.' :
-          'Training in environment creation, animation and interactive production.';
-      }
-    }
-  });
-  
-  // Actualizar habilidades - CORREGIDO: traduce todos los textos
-  const skills = document.querySelectorAll('.skill-item span');
-  skills.forEach(skill => {
-    const text = skill.textContent;
-    if (text === 'Diseño de sistemas' || text === 'Systems Design') {
-      skill.textContent = currentLang === 'es' ? 'Diseño de sistemas' : 'Systems Design';
-    } else if (text === 'Diseño de niveles' || text === 'Level Design') {
-      skill.textContent = currentLang === 'es' ? 'Diseño de niveles' : 'Level Design';
-    } else if (text === 'Prototipado' || text === 'Prototyping') {
-      skill.textContent = currentLang === 'es' ? 'Prototipado' : 'Prototyping';
-    } else if (text === 'Documentación GDD' || text === 'GDD Documentation') {
-      skill.textContent = currentLang === 'es' ? 'Documentación GDD' : 'GDD Documentation';
-    }
-  });
-  
-  // Actualizar especial interés - CORREGIDO: traduce todos los textos
-  const specialInterest = document.querySelector('.special-interest');
-  if (specialInterest) {
-    const h3 = specialInterest.querySelector('h3');
-    const p = specialInterest.querySelector('p');
-    if (h3 && (h3.textContent === 'ESPECIAL INTERÉS' || h3.textContent === 'SPECIAL INTEREST')) {
-      h3.textContent = currentLang === 'es' ? 'ESPECIAL INTERÉS' : 'SPECIAL INTEREST';
-    }
-    if (p) {
-      const content = p.innerHTML;
-      if (content.includes('Worldbuilding y narrativa') || content.includes('Worldbuilding and narrative')) {
-        p.innerHTML = currentLang === 'es' ? 
-          'Worldbuilding y narrativa · Modelado y texturizado 3D · Diseño de juegos · <strong>Artista de Escenarios</strong>' :
-          'Worldbuilding and narrative · 3D Modeling and texturing · Game design · <strong>Level Artist</strong>';
-      }
-    }
-  }
-  
-  // Actualizar capacidades - CORREGIDO: traduce todos los textos
-  const capacidades = document.querySelector('.capacidades');
-  if (capacidades) {
-    const h3 = capacidades.querySelector('h3');
-    const p = capacidades.querySelector('p');
-    if (h3 && (h3.textContent === 'CAPACIDADES' || h3.textContent === 'CAPABILITIES')) {
-      h3.textContent = currentLang === 'es' ? 'CAPACIDADES' : 'CAPABILITIES';
-    }
-    if (p) {
-      const content = p.textContent;
-      if (content.includes('Documentación GDD') || content.includes('GDD Documentation')) {
-        p.textContent = currentLang === 'es' ? 
-          'Documentación GDD · Programación C# · UX/UI · Mecánicas y sistemas · Animación · Rigging' :
-          'GDD Documentation · C# Programming · UX/UI · Mechanics and systems · Animation · Rigging';
-      }
-    }
-  }
-  
-  // Actualizar contacto - CORREGIDO: traduce todos los textos
-  const contactoTitle = document.querySelector('#contacto h1');
-  if (contactoTitle) {
-    contactoTitle.innerHTML = currentLang === 'es' ? 
-      'CONTACTO<br><span class="accent">Hablemos de proyectos.</span>' :
-      'CONTACT<br><span class="accent">Let\'s talk about projects.</span>';
-  }
-  
-  // Actualizar botón copiar email - CORREGIDO: traduce todos los textos
-  const copyEmailBtn = document.getElementById('copy-email-btn');
-  if (copyEmailBtn) {
-    copyEmailBtn.textContent = getTranslatedText('Copiar email', 'Copy email');
-  }
-}
-
-// Actualizar al cargar con español por defecto
-updateAllTexts();
-
-// Event listener para botón idioma
-langBtn.addEventListener('click', () => {
-  setLanguage(currentLang === 'en' ? 'es' : 'en');
+  // Lazy loading básico
+  if (img.getAttribute('src') === 'about:blank' || !img.getAttribute('src')) return;
 });
 
-console.log('Portfolio de Ismael Pérez - Game Designer v6');
-console.log('Modales y slider funcionales | Diseño responsive completo | Animación barras habilidades | Sistema bilingüe ES/EN corregido v6');
+console.log('Portfolio de Ismael Pérez - Game Designer');
+console.log('Modales y slider funcionales | Diseño responsive completo | Animación barras habilidades');

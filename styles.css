@@ -20,8 +20,6 @@
 
 html {
   scroll-behavior: smooth;
-  max-width: 100%;
-  overflow-x: hidden;
 }
 
 body {
@@ -30,7 +28,6 @@ body {
   color: var(--black);
   line-height: 1.6;
   overflow-x: hidden;
-  max-width: 100%;
 }
 
 /* ============================================
@@ -42,6 +39,7 @@ h1, h2, h3 {
   line-height: 1.1;
 }
 
+/* Clase para texto en rosa (solo cuando se usa) */
 .accent {
   color: var(--pink);
 }
@@ -52,7 +50,7 @@ h1, h2, h3 {
 }
 
 /* ============================================
-   SECCIÓN 01: INICIO - TÍTULO PRINCIPAL VISIBLE
+   SECCIÓN 01: INICIO
 ============================================= */
 #inicio {
   position: relative;
@@ -64,15 +62,11 @@ h1, h2, h3 {
   padding-right: 5%;
 }
 
-/* FIX: Título principal siempre visible en blanco */
 .hero h1 {
   font-size: clamp(2.5rem, 6vw, 5rem);
   letter-spacing: -0.03em;
   margin-bottom: 2rem;
   color: #ffffff;
-  opacity: 1;
-  visibility: visible;
-  display: block;
 }
 
 .subtext {
@@ -93,7 +87,7 @@ h1, h2, h3 {
   overflow: hidden;
 }
 
-/* FIX: Flechas correctamente posicionadas */
+/* FIX: Flechas correctamente posicionadas en desktop y móvil */
 .arrow-left,
 .arrow-right {
   position: absolute;
@@ -181,33 +175,13 @@ h1, h2, h3 {
 }
 
 /* ============================================
-   BOTÓN IDIOMA
-============================================= */
-.lang-btn {
-  background-color: rgba(255, 0, 105, 0.1);
-  border: 1px solid var(--pink);
-  color: #fff;
-  padding: 0.4rem 0.7rem;
-  font-size: 0.75rem;
-  letter-spacing: 0.05em;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: all 0.3s ease;
-}
-
-.lang-btn:hover {
-  background-color: var(--pink);
-  color: #fff;
-}
-
-/* ============================================
    MODAL STYLES (RESPONSIVE)
 ============================================= */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   background-color: var(--modal-overlay);
   display: none;
@@ -332,7 +306,7 @@ h1, h2, h3 {
   background-color: #d9005a;
 }
 
-/* Botones deshabilitados */
+/* Botones deshabilitados (no mostrados si están null) */
 .btn-modal.disabled {
   opacity: 0.45;
   cursor: not-allowed;
@@ -626,54 +600,7 @@ h1, h2, h3 {
 }
 
 /* ============================================
-   NAVBAR FIJA INFERIOR - VISIBLE SIEMPRE
-============================================= */
-.navbar {
-  position: fixed;
-  bottom: 1.25rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1.2rem;
-  background: rgba(17, 17, 17, 0.92);
-  padding: 0.8rem 1.4rem;
-  border-radius: 50px;
-  backdrop-filter: blur(8px);
-  z-index: 2000;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  max-width: calc(100vw - 1.5rem);
-}
-
-.nav-link {
-  color: #999;
-  text-decoration: none;
-  font-size: clamp(0.75rem, 2vw, 0.85rem);
-  letter-spacing: 1px;
-  transition: color 0.3s ease;
-  white-space: nowrap;
-}
-
-.nav-link.active, .nav-link:hover {
-  color: var(--pink);
-}
-
-/* Botón de idioma visible en navbar */
-.lang-btn {
-  background: #ff0069;
-  color: #ffffff;
-  border: none;
-  border-radius: 20px;
-  padding: 0.3rem 0.65rem;
-  font-size: 0.72rem;
-  font-weight: 700;
-  cursor: pointer;
-  flex-shrink: 0;
-}
-
-/* ============================================
-   RESPONSIVE GENERAL - FIX CORTE/MOBIL
+   RESPONSIVE GENERAL
 ============================================= */
 #inicio, #sobre-mi, #cv, #contacto {
   padding-left: clamp(1.25rem, 5vw, 4rem);
@@ -697,42 +624,63 @@ h1, h2, h3 {
 }
 
 /* ============================================
-   NAVBAR RESPONSIVE - MOBIL < 768px
+   NAVBAR RESPONSIVE
 ============================================= */
-@media (max-width: 768px) {
+.navbar {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1.5rem;
+  background: rgba(17, 17, 17, 0.85);
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.nav-link {
+  color: #999;
+  text-decoration: none;
+  font-size: clamp(0.75rem, 2vw, 0.85rem);
+  letter-spacing: 1px;
+  transition: color 0.3s ease;
+  white-space: nowrap;
+}
+
+.nav-link.active, .nav-link:hover {
+  color: var(--pink);
+}
+
+@media (max-width: 600px) {
   .navbar {
-    width: calc(100% - 1rem);
-    justify-content: space-between;
-    gap: 0.35rem;
-    padding: 0.65rem 0.75rem;
+    width: calc(100% - 2rem);
+    max-width: 420px;
+    justify-content: space-around;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
   }
-  
+
   .nav-link {
-    font-size: 0.62rem;
-    letter-spacing: 0.3px;
-  }
-  
-  .lang-btn {
-    padding: 0.25rem 0.5rem;
-    font-size: 0.62rem;
+    font-size: clamp(0.65rem, 2vw, 0.8rem);
   }
 }
 
 /* ============================================
-   MODAL RESPONSIVE - ANCHO CORREGIDO A 100%
+   MODAL RESPONSIVE
 ============================================= */
 @media (max-width: 768px) {
   #project-modal {
     flex-direction: column;
     height: 90vh;
     max-width: 95%;
-    width: 100%;
   }
 
   .modal-image-container {
     flex: 1;
     min-height: 300px;
-    width: 100%;
   }
 
   .modal-content {
