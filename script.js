@@ -128,7 +128,8 @@ slides.forEach(slide => {
 const projectData = {
   '01': {
     title: 'PANZERDRIFTER',
-    meta: 'Combat racing · 1º año',
+    meta_es: 'Combat racing · 1º año',
+    meta_en: 'Combat racing · Year 1',
     description: 'Carreras de tanques en un desierto egipcio: derrapa, apuntas y llegas antes que tus rivales.',
     image: 'assets/PanzerdrifterCaptura.png',
     gddLink: 'assets/GDD-Panzerdrifter.pdf',
@@ -136,7 +137,8 @@ const projectData = {
   },
   '02': {
     title: 'MENTIROSOS',
-    meta: 'Card game · 2º año',
+    meta_es: 'Card game · 2º año',
+    meta_en: 'Card game · Year 2',
     description: 'Un juego de cartas donde la verdad es relativa y cada jugador debe convencer a los demás de su mentira más creativa.',
     image: 'assets/MentirososCaptura.png',
     gddLink: 'assets/GDD-Mentirosos.pdf',
@@ -144,7 +146,8 @@ const projectData = {
   },
   '03': {
     title: 'TEENY TINY SQUIDS INVASION',
-    meta: 'Tower defense · 3º año',
+    meta_es: 'Tower defense · 3º año',
+    meta_en: 'Tower defense · Year 3',
     description: 'Defiende la playa contra una invasión de pulpos miniatura con torres temáticas y estrategias únicas.',
     image: 'assets/TTSICaptura.png',
     gddLink: 'assets/GDD-TTSI.pdf',
@@ -152,7 +155,8 @@ const projectData = {
   },
   '04': {
     title: 'BAR ESPACIAL',
-    meta: 'Proyecto individual · TFC',
+    meta_es: 'Proyecto individual · TFC',
+    meta_en: 'Individual project · Final Year Capstone',
     description: 'Un bar futurista en una estación espacial donde cada rincón cuenta una historia. Exploración de atmósferas y narrativa ambiental.',
     image: 'assets/BarEspacialCaptura.png',
     gddLink: null,
@@ -188,7 +192,7 @@ function openModal(projectId) {
       </div>
       <div class="modal-content">
         <h2 class="modal-title">${data.title}</h2>
-        <p class="modal-meta">${data.meta}</p>
+        <p class="modal-meta">${data.meta_es}</p>
         <p class="modal-description">${data.description}</p>
         ${actionsBlock}
       </div>
@@ -230,21 +234,6 @@ document.addEventListener('keydown', (e) => {
   
   if (e.key === 'Escape') {
     closeModal();
-  }
-});
-
-// ============================================
-// OPEN MODAL ON SLIDE CLICK - FIX: solo con click en la imagen, no flechas
-// ============================================
-slides.forEach(slide => {
-  const img = slide.querySelector('img');
-  
-  // Click en la imagen abre modal
-  if (img) {
-    img.addEventListener('click', () => {
-      const projectId = slide.getAttribute('data-id');
-      openModal(projectId);
-    });
   }
 });
 
@@ -372,15 +361,67 @@ const resizeSlider = () => {
 window.addEventListener('resize', resizeSlider);
 
 // ============================================
-// OPTIMIZACIÓN DE IMÁGENES PARA MOVIL
+// SYSTEM BILINGÜE ES/EN - CORREGIDO SEGÚN HANDOFF
 // ============================================
-const images = document.querySelectorAll('img');
-images.forEach(img => {
-  const parent = img.parentElement;
+
+const langBtn = document.getElementById('lang-toggle');
+let currentLang = localStorage.getItem('portfolio_lang') || 'en';
+
+function setLanguage(lang) {
+  currentLang = lang;
+  localStorage.setItem('portfolio_lang', lang);
   
-  // Lazy loading básico
-  if (img.getAttribute('src') === 'about:blank' || !img.getAttribute('src')) return;
+  // Actualizar botón idioma
+  if (langBtn) {
+    langBtn.textContent = lang === 'en' ? 'ES' : 'EN';
+  }
+  
+  // Actualizar textos en la web
+  updateLanguageTexts();
+}
+
+function updateLanguageTexts() {
+  const elements = document.querySelectorAll('[data-lang-es]');
+  
+  elements.forEach(element => {
+    const esText = element.getAttribute('data-lang-es');
+    const enText = element.getAttribute('data-lang-en');
+    
+    if (currentLang === 'es') {
+      element.textContent = esText;
+    } else {
+      element.textContent = enText;
+    }
+  });
+  
+  // Actualizar botones de descarga CV según idioma
+  const btnCvEs = document.getElementById('btn-download-cv-es');
+  const btnCvEn = document.getElementById('btn-download-cv-en');
+  
+  if (currentLang === 'es') {
+    if (btnCvEs) {
+      btnCvEs.style.display = 'inline-flex';
+    }
+    if (btnCvEn) {
+      btnCvEn.style.display = 'none';
+    }
+  } else {
+    if (btnCvEs) {
+      btnCvEs.style.display = 'none';
+    }
+    if (btnCvEn) {
+      btnCvEn.style.display = 'inline-flex';
+    }
+  }
+}
+
+// Actualizar al cargar
+updateLanguageTexts();
+
+// Event listener para botón idioma
+langBtn.addEventListener('click', () => {
+  setLanguage(currentLang === 'en' ? 'es' : 'en');
 });
 
 console.log('Portfolio de Ismael Pérez - Game Designer');
-console.log('Modales y slider funcionales | Diseño responsive completo | Animación barras habilidades');
+console.log('Modales y slider funcionales | Diseño responsive completo | Animación barras habilidades | Sistema bilingüe ES/EN');
