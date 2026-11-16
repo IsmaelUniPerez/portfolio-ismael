@@ -131,7 +131,7 @@ const projectData = {
     meta: 'Combat racing · 1º año',
     description: 'Carreras de tanques en un desierto egipcio: derrapa, apuntas y llegas antes que tus rivales.',
     image: 'assets/PanzerdrifterCaptura.png',
-    gddLink: null,
+    gddLink: 'assets/GDD-Panzerdrifter.pdf',
     itchLink: null
   },
   '02': {
@@ -139,16 +139,16 @@ const projectData = {
     meta: 'Card game · 2º año',
     description: 'Un juego de cartas donde la verdad es relativa y cada jugador debe convencer a los demás de su mentira más creativa.',
     image: 'assets/MentirososCaptura.png',
-    gddLink: null,
-    itchLink: null
+    gddLink: 'assets/GDD-Mentirosos.pdf',
+    itchLink: 'https://ismaeluniperez.itch.io/mentirosos'
   },
   '03': {
     title: 'TEENY TINY SQUIDS INVASION',
     meta: 'Tower defense · 3º año',
     description: 'Defiende la playa contra una invasión de pulpos miniatura con torres temáticas y estrategias únicas.',
     image: 'assets/TTSICaptura.png',
-    gddLink: null,
-    itchLink: null
+    gddLink: 'assets/GDD-TTSI.pdf',
+    itchLink: 'https://ismaeluniperez.itch.io/teeny-tiny-squids-invasion'
   },
   '04': {
     title: 'BAR ESPACIAL',
@@ -166,6 +166,16 @@ function openModal(projectId) {
   const data = projectData[projectId];
   if (!data || !modalOverlay) return;
 
+  const gddButton = data.gddLink
+    ? `<a href="${data.gddLink}" download class="btn-modal btn-gdd">Descargar GDD (PDF)</a>`
+    : '';
+  const itchButton = data.itchLink
+    ? `<a href="${data.itchLink}" target="_blank" rel="noopener noreferrer" class="btn-modal btn-itch">Jugar en itch.io ↗</a>`
+    : '';
+  const actionsBlock = (gddButton || itchButton)
+    ? `<div class="modal-actions">${gddButton}${itchButton}</div>`
+    : '';
+
   modalOverlay.innerHTML = `
     <div id="project-modal">
       <button class="modal-close-btn" aria-label="Cerrar">&times;</button>
@@ -176,16 +186,7 @@ function openModal(projectId) {
         <h2 class="modal-title">${data.title}</h2>
         <p class="modal-meta">${data.meta}</p>
         <p class="modal-description">${data.description}</p>
-        <div class="modal-actions">
-          ${data.gddLink
-            ? `<a href="${data.gddLink}" download class="btn-modal btn-gdd">Descargar GDD (PDF)</a>`
-            : `<span class="btn-modal btn-gdd disabled">GDD · próximamente</span>`
-          }
-          ${data.itchLink
-            ? `<a href="${data.itchLink}" target="_blank" rel="noopener noreferrer" class="btn-modal btn-itch">Ver en itch.io ↗</a>`
-            : `<span class="btn-modal btn-itch disabled">itch.io · próximamente</span>`
-          }
-        </div>
+        ${actionsBlock}
       </div>
     </div>
   `;

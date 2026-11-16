@@ -24,7 +24,7 @@ html {
 
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  background-color: #111; /* FIX: fondo negro para evitar franjas blancas */
+  background-color: #111;
   color: var(--black);
   line-height: 1.6;
   overflow-x: hidden;
@@ -58,7 +58,7 @@ h1, h2, h3 {
   padding-top: 5rem;
   padding-bottom: 8rem;
   min-height: 100vh;
-  padding-left: 5%; /* FIX: sangría lateral responsive */
+  padding-left: 5%;
   padding-right: 5%;
 }
 
@@ -66,7 +66,7 @@ h1, h2, h3 {
   font-size: clamp(2.5rem, 6vw, 5rem);
   letter-spacing: -0.03em;
   margin-bottom: 2rem;
-  color: #ffffff; /* FIX: texto blanco para legibilidad */
+  color: #ffffff;
 }
 
 .subtext {
@@ -76,10 +76,10 @@ h1, h2, h3 {
   margin-top: 1rem;
 }
 
-/* SLIDER CONTAINER CON MEJORAS DE LAYOUT */
+/* SLIDER CONTAINER */
 .slider-container {
   position: relative;
-  margin: 3rem auto; /* FIX: centrado horizontalmente */
+  margin: 3rem auto;
   padding: 1.5rem;
   border-radius: 12px;
   background: rgba(17, 17, 17, 0.8);
@@ -87,7 +87,7 @@ h1, h2, h3 {
   overflow: hidden;
 }
 
-/* FIX: Flejas ahora dentro del slider y visibles */
+/* FIX: Flechas correctamente posicionadas en desktop y móvil */
 .arrow-left, .arrow-right {
   position: absolute;
   top: 50%;
@@ -96,23 +96,32 @@ h1, h2, h3 {
   color: var(--pink);
   cursor: pointer;
   z-index: 10;
-  background: rgba(17, 17, 17, 0.8); /* FIX: fondo semitransparente */
+  background: rgba(17, 17, 17, 0.8);
   border-radius: 50%;
   padding: 0.8rem 1.2rem;
   border: 1px solid var(--pink);
   transition: all 0.3s ease;
+  left: 1.5rem;
+  right: 1.5rem;
 }
 
-.arrow-left:hover,
-.arrow-right:hover {
+.arrow-left {
+  left: auto;
+}
+
+.arrow-right {
+  right: auto;
+}
+
+.arrow-left:hover, .arrow-right:hover {
   background: rgba(255, 0, 105, 0.8);
   transform: translateY(-50%) scale(1.1);
 }
 
-/* RESPONSIVE FLEJAS - AREA TACTIL MINIMA DE 44x44 */
+/* RESPONSIVE FLECHAS - AREA TACTIL MINIMA DE 44x44 */
 @media (max-width: 768px) {
   .arrow-left { left: 0.75rem; right: auto; padding: 0.6rem 0.9rem; }
-  .arrow-right { right: 0.75rem; left: auto; padding: 0.6rem 0.9rem; }
+  .arrow-right { right: 0.75rem; left: auto; padding: 0.6rem 0.9rem; min-width: 44px; min-height: 44px; }
 }
 
 /* SLIDER */
@@ -125,7 +134,7 @@ h1, h2, h3 {
 #project-slider {
   display: flex;
   transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-  height: 55vh; /* FIX: altura fija para consistencia */
+  height: 55vh;
   min-height: 350px;
 }
 
@@ -136,15 +145,14 @@ h1, h2, h3 {
   overflow: hidden;
 }
 
-/* FIX: Imagen con width 100% y height auto */
 .slide img {
-  width: 100%; /* FIX: no más 100vw */
+  width: 100%;
   height: 55vh;
   object-fit: cover;
   display: block;
 }
 
-/* INFO BLOQUE SUPERPUESTO EN LA PARTE INFERIOR */
+/* INFO BLOQUE SUPERPUESTO */
 .slide-info {
   position: absolute;
   bottom: 0;
@@ -166,7 +174,7 @@ h1, h2, h3 {
 }
 
 /* ============================================
-   MODAL STYLES (RESPONSIVE) - ESTRUCTURA COMPLETA
+   MODAL STYLES (RESPONSIVE)
 ============================================= */
 .modal-overlay {
   position: fixed;
@@ -297,6 +305,13 @@ h1, h2, h3 {
   background-color: #d9005a;
 }
 
+/* Botones deshabilitados (no mostrados si están null) */
+.btn-modal.disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 /* ============================================
    SECCIÓN 02: SOBRE MÍ
 ============================================= */
@@ -369,7 +384,7 @@ h1, h2, h3 {
   color: #ccc;
   padding: 6rem 0;
   font-family: 'Courier New', monospace;
-  padding-left: 5%; /* FIX: sangría lateral responsive */
+  padding-left: 5%;
   padding-right: 5%;
 }
 
@@ -386,7 +401,13 @@ h1, h2, h3 {
   color: #fff;
 }
 
-/* FIX: Botón de descarga con hover visible */
+.cv-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: stretch;
+}
+
 .download-button {
   display: inline-flex;
   align-items: center;
@@ -397,7 +418,7 @@ h1, h2, h3 {
   font-size: 0.8rem;
   letter-spacing: 0.05em;
   color: #ccc;
-  cursor: pointer; /* FIX: ahora interactivo */
+  cursor: pointer;
   text-decoration: none;
   transition: all 0.3s ease;
 }
@@ -408,9 +429,14 @@ h1, h2, h3 {
   color: #fff;
 }
 
-.download-button span:last-child {
-  color: #666;
-  margin-left: 0.5rem;
+.artstation-button {
+  border-color: rgba(150, 255, 0, 0.4);
+}
+
+.artstation-button:hover {
+  border-color: var(--green-neon);
+  background: rgba(150, 255, 0, 0.1);
+  color: #fff;
 }
 
 /* EXPERIENCE */
@@ -472,8 +498,8 @@ h1, h2, h3 {
 
 .fill {
   height: 100%;
-  width: 0%; /* INICIO en 0% para animación */
-  background-color: var(--pink); /* FIX: ahora se ven las barras llenas */
+  width: 0%;
+  background-color: var(--pink);
   transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -505,40 +531,39 @@ h1, h2, h3 {
   padding: 0.5rem 1rem;
   font-size: 0.85rem;
   border: 1px solid #333;
-  color: #fff; /* FIX: texto blanco para legibilidad */
+  color: #fff;
 }
 
 /* ============================================
    SECCIÓN 04: CONTACTO - REDESIGNADO
 ============================================= */
 #contacto {
-  background-color: #0b0b0b; /* NEGRO EN LUGAR DE ROSA */
+  background-color: #0b0b0b;
   padding: 6rem 2rem;
   text-align: center;
-  border-top: 1px solid #222; /* BORDE SUPERIOR SUTIL */
-  padding-left: 5%; /* FIX: sangría lateral responsive */
+  border-top: 1px solid #222;
+  padding-left: 5%;
   padding-right: 5%;
-  padding-bottom: 8rem; /* FIX: espacio para navbar flotante */
+  padding-bottom: 8rem;
 }
 
 .contact h1 {
   font-size: clamp(3rem, 8vw, 5rem);
   line-height: 1;
   margin-bottom: 4rem;
-  color: #ffffff; /* BLANCO */
+  color: #ffffff;
 }
 
-/* FIX: Botón de email con alto contraste */
 .email-button {
   display: inline-flex;
   align-items: center;
-  background-color: #ff0069; /* FONDO ROSA NEÓN */
+  background-color: #ff0069;
   border: 1px solid #ff0069;
   padding: 1.5rem 2rem;
   font-size: 1rem;
   letter-spacing: 0.05em;
   cursor: pointer;
-  text-decoration: none; /* FIX: no más underline */
+  text-decoration: none;
   transition: background 0.3s ease;
   color: #fff;
   margin-bottom: 2rem;
@@ -548,12 +573,10 @@ h1, h2, h3 {
   background-color: #d9005a;
 }
 
-/* SVG icons con colores visibles */
 .email-button svg path {
-  fill: #ffffff !important; /* FIX: sobreescritura para visibilidad */
+  fill: #ffffff !important;
 }
 
-/* Botón copiar email (opcional) */
 .email-copy-button {
   background-color: #1a1a1a;
   border: 1px solid var(--pink);
@@ -573,10 +596,10 @@ h1, h2, h3 {
 }
 
 /* ============================================
-   RESPONSIVE GENERAL - PADDING LATERAL GLOBAL
+   RESPONSIVE GENERAL
 ============================================= */
 #inicio, #sobre-mi, #cv, #contacto {
-  padding-left: clamp(1.25rem, 5vw, 4rem); /* FIX: márgenes laterales */
+  padding-left: clamp(1.25rem, 5vw, 4rem);
   padding-right: clamp(1.25rem, 5vw, 4rem);
 }
 
@@ -587,17 +610,17 @@ h1, h2, h3 {
   }
   
   #sobre-mi {
-    grid-template-columns: 1fr; /* FIX: apilar en móvil */
+    grid-template-columns: 1fr;
   }
   
   .profile-photo {
     max-width: 350px;
-    margin: 0 auto; /* FIX: centrado en móvil */
+    margin: 0 auto;
   }
 }
 
 /* ============================================
-   NAVBAR RESPONSIVE - MOVIL < 600px
+   NAVBAR RESPONSIVE
 ============================================= */
 .navbar {
   position: fixed;
@@ -620,19 +643,18 @@ h1, h2, h3 {
   font-size: clamp(0.75rem, 2vw, 0.85rem);
   letter-spacing: 1px;
   transition: color 0.3s ease;
-  white-space: nowrap; /* FIX: sin desbordamiento */
+  white-space: nowrap;
 }
 
 .nav-link.active, .nav-link:hover {
   color: var(--pink);
 }
 
-/* RESPONSIVE NAVBAR < 600px */
 @media (max-width: 600px) {
   .navbar {
-    width: calc(100% - 2rem); /* FIX: menos ancho en móvil */
-    max-width: 420px; /* FIX: límite de ancho */
-    justify-content: space-around; /* FIX: distribución equitativa */
+    width: calc(100% - 2rem);
+    max-width: 420px;
+    justify-content: space-around;
     gap: 0.5rem;
     padding: 0.75rem 1rem;
   }
@@ -643,7 +665,7 @@ h1, h2, h3 {
 }
 
 /* ============================================
-   MODAL RESPONSIVE - MÓVIL Y TABLET
+   MODAL RESPONSIVE
 ============================================= */
 @media (max-width: 768px) {
   #project-modal {
@@ -670,7 +692,6 @@ h1, h2, h3 {
     font-size: clamp(0.9rem, 3vw, 1rem);
   }
 
-  /* FIX: En móvil, email botón ocupa todo el ancho */
   #contacto .email-button {
     width: 100%;
     max-width: 360px;
@@ -678,7 +699,6 @@ h1, h2, h3 {
     word-break: break-all;
   }
 
-  /* FIX: Encabezado CV vertical en móvil */
   #cv .header {
     flex-direction: column;
     gap: 1.5rem;
@@ -700,11 +720,4 @@ h1, h2, h3 {
   .modal-content {
     padding: clamp(0.8rem, 3vw, 1.5rem);
   }
-}
-
-/* Botones deshabilitados en modales */
-.btn-modal.disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-  pointer-events: none;
 }
