@@ -175,14 +175,15 @@ function openModal(projectId) {
   const data = projectData[projectId];
   if (!data || !modalOverlay) return;
 
+  // CORREGIDO: Usar getTranslatedText() para todos los botones y textos del modal
   const gddButton = data.gddLink
-    ? `<a href="${data.gddLink}" download class="btn-modal btn-gdd">${translateText('Download GDD (PDF)')}</a>`
+    ? `<a href="${data.gddLink}" download class="btn-modal btn-gdd">${getTranslatedText('Descargar GDD (PDF)', 'Download GDD (PDF)')}</a>`
     : '';
   const itchButton = data.itchLink
-    ? `<a href="${data.itchLink}" target="_blank" rel="noopener noreferrer" class="btn-modal btn-itch">${translateText('Play on itch.io')} ↗</a>`
+    ? `<a href="${data.itchLink}" target="_blank" rel="noopener noreferrer" class="btn-modal btn-itch">${getTranslatedText('Jugar en itch.io ↗', 'Play on itch.io ↗')}</a>`
     : '';
   const artstationButton = data.artstationLink
-    ? `<a href="${data.artstationLink}" target="_blank" rel="noopener noreferrer" class="btn-modal btn-itch">${translateText('View more on ArtStation')} ↗</a>`
+    ? `<a href="${data.artstationLink}" target="_blank" rel="noopener noreferrer" class="btn-modal btn-itch">${getTranslatedText('Ver más en ArtStation ↗', 'View more on ArtStation ↗')}</a>`
     : '';
   
   const actionsBlock = (gddButton || itchButton || artstationButton)
@@ -197,8 +198,8 @@ function openModal(projectId) {
       </div>
       <div class="modal-content">
         <h2 class="modal-title">${data.title}</h2>
-        <p class="modal-meta">${translateText(data.meta_es, data.meta_en)}</p>
-        <p class="modal-description">${translateText(data.description_es, data.description_en)}</p>
+        <p class="modal-meta">${getTranslatedText(data.meta_es, data.meta_en)}</p>
+        <p class="modal-description">${getTranslatedText(data.description_es, data.description_en)}</p>
         ${actionsBlock}
       </div>
     </div>
@@ -280,7 +281,7 @@ if (copyEmailBtn) {
         document.body.removeChild(tempInput);
       }
       const originalText = copyEmailBtn.textContent;
-      copyEmailBtn.textContent = translateText('Email copied!');
+      copyEmailBtn.textContent = getTranslatedText('¡Correo copiado!', 'Email copied!');
       copyEmailBtn.style.borderColor = '#96ff00';
       copyEmailBtn.style.color = '#96ff00';
       setTimeout(() => {
@@ -420,7 +421,7 @@ const translations = {
   slide_04_meta_es: 'Proyecto individual · TFC',
   slide_04_meta_en: 'Individual project · Final Year Capstone',
   
-  // MODAL BUTTONS
+  // MODAL BUTTONS (ya usados en openModal con getTranslatedText)
   btn_gdd_es: 'Descargar GDD (PDF)',
   btn_gdd_en: 'Download GDD (PDF)',
   btn_itch_es: 'Jugar en itch.io ↗',
@@ -649,8 +650,13 @@ function updateAllTexts() {
     const description = item.querySelector('.content p:last-of-type');
     
     if (year) {
-      if (year.textContent === 'En curso') year.textContent = 'In progress';
-      else if (year.textContent === 'Completado') year.textContent = 'Completed';
+      // CORREGIDO: Comprobar AMBOS idiomas y alternar correctamente
+      if (year.textContent === 'En curso' || year.textContent === 'In progress') {
+        year.textContent = currentLang === 'es' ? 'En curso' : 'In progress';
+      }
+      else if (year.textContent === 'Completado' || year.textContent === 'Completed') {
+        year.textContent = currentLang === 'es' ? 'Completado' : 'Completed';
+      }
     }
     
     if (title) {
@@ -659,12 +665,12 @@ function updateAllTexts() {
           'Prácticas de diseño' : 
           'Design internship';
       }
-      else if (title.textContent.includes('Grado en Diseño')) {
+      else if (title.textContent.includes('Grado en Diseño') || title.textContent.includes("Bachelor's Degree")) {
         title.textContent = currentLang === 'es' ? 
           'Grado en Diseño de Videojuegos' :
           "Bachelor's Degree in Game Design";
       }
-      else if (title.textContent.includes('CFGS Animaciones')) {
+      else if (title.textContent.includes('CFGS Animaciones') || title.textContent.includes('CFGS 3D Animation')) {
         title.textContent = currentLang === 'es' ? 
           'CFGS Animaciones 3D' :
           'CFGS 3D Animation';
@@ -672,8 +678,8 @@ function updateAllTexts() {
     }
     
     if (company) {
-      // CORREGIDO: Traduce "Juegos y Entornos Interactivos" → "Games and Interactive Environments"
-      if (company.textContent.includes('Juegos y Entornos Interactivos')) {
+      // CORREGIDO: Traduce correctamente "Juegos y Entornos Interactivos" ↔ "Games and Interactive Environments"
+      if (company.textContent.includes('Juegos y Entornos Interactivos') || company.textContent.includes('Games and Interactive Environments')) {
         company.textContent = currentLang === 'es' ? 
           'Juegos y Entornos Interactivos' :
           'Games and Interactive Environments';
@@ -686,17 +692,17 @@ function updateAllTexts() {
     }
     
     if (description) {
-      if (description.textContent.includes('Prácticas realizadas')) {
+      if (description.textContent.includes('Prácticas realizadas') || description.textContent.includes('Internship completed')) {
         description.textContent = currentLang === 'es' ? 
           'Prácticas realizadas para completar el CFGS de Animaciones 3D, Juegos y Entornos Interactivos.' :
           'Internship completed to finish CFGS in 3D Animation, Games and Interactive Environments.';
       }
-      else if (description.textContent.includes('Diseño de sistemas, niveles')) {
+      else if (description.textContent.includes('Diseño de sistemas') || description.textContent.includes('Systems design')) {
         description.textContent = currentLang === 'es' ? 
           'Diseño de sistemas, niveles, UX y documentación de proyectos jugables.' :
           'Systems design, level design, UX and documentation of playable projects.';
       }
-      else if (description.textContent.includes('Formación en creación')) {
+      else if (description.textContent.includes('Formación en creación') || description.textContent.includes('Training in environment')) {
         description.textContent = currentLang === 'es' ? 
           'Formación en creación de entornos, animación y producción interactiva.' :
           'Training in environment creation, animation and interactive production.';
@@ -708,13 +714,13 @@ function updateAllTexts() {
   const skills = document.querySelectorAll('.skill-item span');
   skills.forEach(skill => {
     const text = skill.textContent;
-    if (text === 'Diseño de sistemas') {
+    if (text === 'Diseño de sistemas' || text === 'Systems Design') {
       skill.textContent = currentLang === 'es' ? 'Diseño de sistemas' : 'Systems Design';
-    } else if (text === 'Diseño de niveles') {
+    } else if (text === 'Diseño de niveles' || text === 'Level Design') {
       skill.textContent = currentLang === 'es' ? 'Diseño de niveles' : 'Level Design';
-    } else if (text === 'Prototipado') {
+    } else if (text === 'Prototipado' || text === 'Prototyping') {
       skill.textContent = currentLang === 'es' ? 'Prototipado' : 'Prototyping';
-    } else if (text === 'Documentación GDD') {
+    } else if (text === 'Documentación GDD' || text === 'GDD Documentation') {
       skill.textContent = currentLang === 'es' ? 'Documentación GDD' : 'GDD Documentation';
     }
   });
@@ -724,12 +730,12 @@ function updateAllTexts() {
   if (specialInterest) {
     const h3 = specialInterest.querySelector('h3');
     const p = specialInterest.querySelector('p');
-    if (h3 && h3.textContent === 'ESPECIAL INTERÉS') {
+    if (h3 && (h3.textContent === 'ESPECIAL INTERÉS' || h3.textContent === 'SPECIAL INTEREST')) {
       h3.textContent = currentLang === 'es' ? 'ESPECIAL INTERÉS' : 'SPECIAL INTEREST';
     }
     if (p) {
       const content = p.innerHTML;
-      if (content.includes('Worldbuilding y narrativa')) {
+      if (content.includes('Worldbuilding y narrativa') || content.includes('Worldbuilding and narrative')) {
         p.innerHTML = currentLang === 'es' ? 
           'Worldbuilding y narrativa · Modelado y texturizado 3D · Diseño de juegos · <strong>Artista de Escenarios</strong>' :
           'Worldbuilding and narrative · 3D Modeling and texturing · Game design · <strong>Level Artist</strong>';
@@ -742,13 +748,16 @@ function updateAllTexts() {
   if (capacidades) {
     const h3 = capacidades.querySelector('h3');
     const p = capacidades.querySelector('p');
-    if (h3 && h3.textContent === 'CAPACIDADES') {
+    if (h3 && (h3.textContent === 'CAPACIDADES' || h3.textContent === 'CAPABILITIES')) {
       h3.textContent = currentLang === 'es' ? 'CAPACIDADES' : 'CAPABILITIES';
     }
     if (p) {
-      p.textContent = currentLang === 'es' ? 
-        'Documentación GDD · Programación C# · UX/UI · Mecánicas y sistemas · Animación · Rigging' :
-        'GDD Documentation · C# Programming · UX/UI · Mechanics and systems · Animation · Rigging';
+      const content = p.textContent;
+      if (content.includes('Documentación GDD') || content.includes('GDD Documentation')) {
+        p.textContent = currentLang === 'es' ? 
+          'Documentación GDD · Programación C# · UX/UI · Mecánicas y sistemas · Animación · Rigging' :
+          'GDD Documentation · C# Programming · UX/UI · Mechanics and systems · Animation · Rigging';
+      }
     }
   }
   
@@ -763,7 +772,7 @@ function updateAllTexts() {
   // Actualizar botón copiar email - CORREGIDO: traduce todos los textos
   const copyEmailBtn = document.getElementById('copy-email-btn');
   if (copyEmailBtn) {
-    copyEmailBtn.textContent = currentLang === 'es' ? 'Copiar email' : 'Copy email';
+    copyEmailBtn.textContent = getTranslatedText('Copiar email', 'Copy email');
   }
 }
 
@@ -775,5 +784,5 @@ langBtn.addEventListener('click', () => {
   setLanguage(currentLang === 'en' ? 'es' : 'en');
 });
 
-console.log('Portfolio de Ismael Pérez - Game Designer v5');
-console.log('Modales y slider funcionales | Diseño responsive completo | Animación barras habilidades | Sistema bilingüe ES/EN corregido');
+console.log('Portfolio de Ismael Pérez - Game Designer v6');
+console.log('Modales y slider funcionales | Diseño responsive completo | Animación barras habilidades | Sistema bilingüe ES/EN corregido v6');
