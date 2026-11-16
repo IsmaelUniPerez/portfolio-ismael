@@ -9,6 +9,7 @@
   --green-neon: #96ff00;
   --yellow-neon: #ccff00;
   --off-white: #f4f4f4;
+  --modal-overlay: rgba(0, 0, 0, 0.85);
 }
 
 * {
@@ -43,23 +44,32 @@ h1, h2, h3 {
   line-height: 1.1;
 }
 
-span {
+/* Clase para texto en rosa (solo cuando se usa) */
+.accent {
   color: var(--pink);
 }
 
+.accent.large {
+  font-size: clamp(2.5em, 6vw, 3em);
+  line-height: 1;
+}
+
 /* ============================================
-   SECTION 01: INICIO
+   SECCIÓN 01: INICIO
 ============================================= */
 #inicio {
   position: relative;
   background-color: #111;
-  padding-bottom: 4rem;
+  padding-top: 5rem;
+  padding-bottom: 8rem;
+  min-height: 100vh;
 }
 
 .hero h1 {
   font-size: clamp(2.5rem, 6vw, 5rem);
   letter-spacing: -0.03em;
   margin-bottom: 2rem;
+  color: #ffffff; /* FIX: texto blanco para legibilidad */
 }
 
 .subtext {
@@ -69,16 +79,53 @@ span {
   margin-top: 1rem;
 }
 
-/* SLIDER */
+/* SLIDER CONTAINER CON FLEJAS CORRECTAMENTE POSICIONADAS */
 .slider-container {
   position: relative;
   margin-top: 4rem;
   overflow: hidden;
 }
 
+/* FIX: Flejas ahora dentro del slider y visibles */
+.arrow-left, .arrow-right {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: var(--pink);
+  cursor: pointer;
+  z-index: 10;
+  background: rgba(17, 17, 17, 0.8); /* FIX: fondo semitransparente */
+  border-radius: 50%;
+  padding: 0.8rem 1.2rem;
+  border: 1px solid var(--pink);
+  transition: all 0.3s ease;
+}
+
+.arrow-left:hover, .arrow-right:hover {
+  background: rgba(255, 0, 105, 0.8);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.arrow-left { 
+  left: 1.5rem; /* FIX: dentro del área visible */
+}
+.arrow-right { 
+  right: 1.5rem; /* FIX: dentro del área visible */
+}
+
+/* SLIDER */
+.slider {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+
 #project-slider {
   display: flex;
   transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  height: 55vh; /* FIX: altura fija para consistencia */
+  min-height: 350px;
 }
 
 .slide {
@@ -87,37 +134,22 @@ span {
   cursor: pointer;
 }
 
-.image-wrapper {
-  position: relative;
-}
-
+/* FIX: Imagen con width 100% y height auto */
 .slide img {
-  width: 100vw;
+  width: 100%; /* FIX: no más 100vw */
   height: auto;
+  min-height: 350px;
   max-height: 60vh;
-  object-fit: cover;
+  object-fit: contain;
   filter: grayscale(100%) contrast(1.2);
-  transition: filter 0.5s ease;
+  transition: filter 0.5s ease, transform 0.3s ease;
 }
 
 .slide:hover img {
   filter: grayscale(0%);
 }
 
-.arrow-left, .arrow-right {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 2rem;
-  color: var(--pink);
-  cursor: pointer;
-  z-index: 10;
-}
-
-.arrow-left { left: -30px; }
-.arrow-right { right: -30px; }
-
-/* NAVBAR */
+/* NAVBAR CON Z-INDEX CORRECTO */
 .navbar {
   position: fixed;
   bottom: 2rem;
@@ -125,16 +157,18 @@ span {
   transform: translateX(-50%);
   display: flex;
   gap: 1.5rem;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(17, 17, 17, 0.85); /* FIX: fondo oscuro para visibilidad */
   padding: 1rem 2rem;
   border-radius: 50px;
   backdrop-filter: blur(8px);
+  z-index: 1000; /* FIX: por encima de todo */
+  border: 1px solid rgba(255, 255, 255, 0.15); /* FIX: borde para contraste */
 }
 
 .nav-link {
   color: #999;
   text-decoration: none;
-  font-size: 0.85rem;
+  font-size: clamp(0.75rem, 2vw, 0.85rem);
   letter-spacing: 1px;
   transition: color 0.3s ease;
 }
@@ -143,18 +177,16 @@ span {
   color: var(--pink);
 }
 
-/* SCROLL INDICATOR */
+/* SCROLL INDICATOR - INTEGRADO DESPUÉS DEL TÍTULO */
 .scroll-indicator {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 0.8rem;
+  position: static; /* FIX: no más absoluto que chocaba con navbar */
+  margin-top: 2rem;
+  font-size: clamp(0.7rem, 1.5vw, 0.8rem);
   color: #777;
 }
 
 /* ============================================
-   SECTION 02: SOBRE MÍ
+   SECCIÓN 02: SOBRE MÍ
 ============================================= */
 #sobre-mi {
   background-color: var(--off-white);
@@ -218,7 +250,7 @@ span {
 }
 
 /* ============================================
-   SECTION 03: CV + CAPABILITIES
+   SECCIÓN 03: CV + CAPABILITIES
 ============================================= */
 #cv {
   background-color: var(--black);
@@ -237,14 +269,18 @@ span {
 .main-title {
   font-size: clamp(2.5rem, 7vw, 4.5rem);
   line-height: 0.9;
+  color: #fff;
 }
 
+/* FIX: Botón de descarga con hover visible */
 .download-button {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid #333;
   padding: 1rem 1.5rem;
   font-size: 0.8rem;
   letter-spacing: 0.05em;
+  color: #ccc;
+  cursor: not-allowed; /* пока disabled */
 }
 
 .download-button span:last-child {
@@ -342,10 +378,11 @@ span {
   padding: 0.5rem 1rem;
   font-size: 0.85rem;
   border: 1px solid #333;
+  color: #fff; /* FIX: texto blanco para legibilidad */
 }
 
 /* ============================================
-   SECTION 04: CONTACTO
+   SECCIÓN 04: CONTACTO
 ============================================= */
 #contacto {
   background-color: var(--pink);
@@ -357,8 +394,10 @@ span {
   font-size: clamp(3rem, 8vw, 5rem);
   line-height: 1;
   margin-bottom: 4rem;
+  color: #fff; /* FIX: texto blanco para legibilidad */
 }
 
+/* FIX: Botón de email con link funcional */
 .email-button {
   display: inline-flex;
   align-items: center;
@@ -368,14 +407,157 @@ span {
   font-size: 1rem;
   letter-spacing: 0.05em;
   cursor: pointer;
+  text-decoration: none; /* FIX: no más underline */
+  transition: background 0.3s ease;
 }
 
 .email-button:hover {
   background: #f9f9f9;
 }
 
+/* SVG icons con colores visibles */
+.email-button svg path {
+  fill: #333 !important; /* FIX: sobreescritura para visibilidad */
+}
+
 /* ============================================
-   RESPONSIVE
+   MODAL STYLES (RESPONSIVE)
+============================================= */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--modal-overlay);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: clamp(1rem, 2vw, 2rem);
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+#project-modal {
+  position: relative;
+  background-color: var(--black);
+  border-radius: 8px;
+  overflow: hidden;
+  max-width: 1200px;
+  width: 90%;
+  height: 85vh;
+  display: flex;
+  max-height: 90vh;
+}
+
+.modal-image-container {
+  flex: 1.5;
+  overflow: hidden;
+  position: relative;
+}
+
+.modal-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.modal-content {
+  flex: 1;
+  padding: clamp(2rem, 5vw, 3rem);
+  overflow-y: auto;
+  min-width: 300px;
+  position: relative;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: #fff;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.modal-close-btn:hover {
+  opacity: 1;
+}
+
+.modal-title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.modal-meta {
+  color: var(--green-neon);
+  font-size: clamp(0.8rem, 2vw, 1rem);
+  margin-bottom: 2rem;
+}
+
+.modal-description {
+  font-size: clamp(1rem, 2.5vw, 1.1rem);
+  color: #ccc;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+/* RESPONSIVE MODAL */
+@media (max-width: 768px) {
+  #project-modal {
+    flex-direction: column;
+    height: 90vh;
+    max-width: 95%;
+  }
+
+  .modal-image-container {
+    flex: 1;
+    min-height: 300px;
+  }
+
+  .modal-content {
+    padding: clamp(1rem, 4vw, 2rem);
+    min-width: auto;
+  }
+
+  .modal-title {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+  }
+
+  .modal-description {
+    font-size: clamp(0.9rem, 3vw, 1rem);
+  }
+}
+
+@media (max-width: 480px) {
+  #project-modal {
+    height: 95vh;
+    padding: clamp(1rem, 3vw, 1.5rem);
+    border-radius: 0;
+  }
+
+  .modal-close-btn {
+    top: clamp(0.5rem, 2vw, 1rem);
+    right: clamp(0.5rem, 2vw, 1rem);
+  }
+
+  .modal-content {
+    padding: clamp(0.8rem, 3vw, 1.5rem);
+  }
+}
+
+/* ============================================
+   RESPONSIVE GENERAL
 ============================================= */
 @media (max-width: 768px) {
   #sobre-mi {
@@ -393,5 +575,28 @@ span {
 
   .year {
     width: 100%;
+  }
+  
+  #cv {
+    padding: 4rem 0;
+  }
+  
+  #sobre-mi {
+    padding: 4rem 0;
+  }
+  
+  #inicio {
+    padding-bottom: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    bottom: 1rem;
+    padding: 0.75rem 1.5rem;
+  }
+
+  .nav-link {
+    font-size: 0.7rem;
   }
 }
