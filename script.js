@@ -163,60 +163,44 @@ const projectData = {
 const modalOverlay = document.getElementById('modal-overlay');
 
 function openModal(projectId) {
-  if (!projectId || !modalOverlay) return;
-  
   const data = projectData[projectId];
-  if (!data) return;
-  
-  // Cerrar modal primero para limpiar estado
-  closeModal();
-  
-  // Crear contenido del modal
-  let modalContent = document.getElementById('project-modal-content');
-  
-  if (!modalContent) {
-    modalContent = document.createElement('div');
-    modalContent.id = 'project-modal-content';
-    modalOverlay.appendChild(modalContent);
-    
-    // Botón cerrar
-    const closeBtn = document.createElement('button');
-    closeBtn.className = 'modal-close-btn';
-    closeBtn.innerHTML = '&times;';
-    closeBtn.setAttribute('aria-label', 'Cerrar');
-    closeBtn.addEventListener('click', closeModal);
-    modalContent.appendChild(closeBtn);
-  }
-  
-  // Renderizar contenido completo con imagen y botones
-  modalContent.innerHTML = `
-    <div class="modal-title">${data.title}</div>
-    <div class="modal-meta">${data.meta}</div>
-    <div class="modal-description">${data.description}</div>
-    
-    <!-- Contenedor de botones de acción -->
-    <div class="modal-actions">
-      ${data.gddLink 
-        ? `<a href="${data.gddLink}" target="_blank" download class="btn-modal btn-gdd">Descargar GDD (PDF)</a>`
-        : `<span class="btn-modal btn-gdd-disabled">GDD próximamente</span>`
-      }
-      
-      ${data.itchLink 
-        ? `<a href="${data.itchLink}" target="_blank" rel="noopener noreferrer" class="btn-modal btn-itch">Jugar en itch.io ↗</a>`
-        : ''
-      }
+  if (!data || !modalOverlay) return;
+
+  modalOverlay.innerHTML = `
+    <div id="project-modal">
+      <button class="modal-close-btn" aria-label="Cerrar">&times;</button>
+      <div class="modal-image-container">
+        <img src="${data.image}" alt="${data.title}" />
+      </div>
+      <div class="modal-content">
+        <h2 class="modal-title">${data.title}</h2>
+        <p class="modal-meta">${data.meta}</p>
+        <p class="modal-description">${data.description}</p>
+        <div class="modal-actions">
+          ${data.gddLink
+            ? `<a href="${data.gddLink}" download class="btn-modal btn-gdd">Descargar GDD (PDF)</a>`
+            : `<span class="btn-modal btn-gdd disabled">GDD · próximamente</span>`
+          }
+          ${data.itchLink
+            ? `<a href="${data.itchLink}" target="_blank" rel="noopener noreferrer" class="btn-modal btn-itch">Ver en itch.io ↗</a>`
+            : `<span class="btn-modal btn-itch disabled">itch.io · próximamente</span>`
+          }
+        </div>
+      </div>
     </div>
   `;
-  
+
+  modalOverlay.querySelector('.modal-close-btn').addEventListener('click', closeModal);
   modalOverlay.classList.add('active');
   stopAutoplay();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  document.body.style.overflow = 'hidden';
 }
 
 function closeModal() {
   if (!modalOverlay) return;
   
   modalOverlay.classList.remove('active');
+  document.body.style.overflow = ''; // RESTAURAR SCROLL AL CERRAR
   setTimeout(() => {
     startAutoplay();
   }, 300);
@@ -260,12 +244,23 @@ slides.forEach(slide => {
 });
 
 // ============================================
-// COPIAR EMAIL FUNCIONAL
+// COPIAR EMAIL FUNCIONAL - CON RESPALDO PARA file://
 // ============================================
 const copyEmailBtn = document.getElementById('copy-email-btn');
 if (copyEmailBtn) {
-  copyEmailBtn.addEventListener('click', () => {
-    navigator.clipboard.writeText('ismaeluniperez@gmail.com').then(() => {
+  copyEmailBtn.addEventListener('click', async () => {
+    const email = 'ismaeluniperez@gmail.com';
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(email);
+      } else {
+        const tempInput = document.createElement('input');
+        tempInput.value = email;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+      }
       const originalText = copyEmailBtn.textContent;
       copyEmailBtn.textContent = '¡Correo copiado!';
       copyEmailBtn.style.borderColor = '#96ff00';
@@ -275,7 +270,9 @@ if (copyEmailBtn) {
         copyEmailBtn.style.borderColor = '';
         copyEmailBtn.style.color = '';
       }, 2000);
-    });
+    } catch (err) {
+      alert('Correo: ' + email);
+    }
   });
 }
 
@@ -284,15 +281,18 @@ if (copyEmailBtn) {
 // ============================================
 const toolkitSection = document.querySelector('.toolkit');
 if (toolkitSection) {
-  const toolkitObserver = new IntersectionObserver((entries) => {
+  const animateBars = () => {
+    document.querySelectorAll('.toolkit .fill').forEach(fill => {
+      const targetWidth = fill.getAttribute('data-width');
+      if (targetWidth) fill.style.width = targetWidth;
+    });
+  };
+
+  const toolkitObserver = new IntersectionObserver((entries, obs) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        // Animar todas las barras cuando la sección entra en pantalla
-        const fills = document.querySelectorAll('.fill');
-        fills.forEach(fill => {
-          fill.style.width = fill.dataset.width;
-        });
-        toolkitObserver.unobserve(entry.target);
+        animateBars();
+        obs.unobserve(entry.target);
       }
     });
   }, { threshold: 0.25 }); // Se activa cuando el 25% de la sección es visible

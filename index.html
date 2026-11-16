@@ -8,19 +8,16 @@
 </head>
 <body>
 
-  <!-- SECTION 01: INICIO -->
   <section id="inicio">
     <div class="hero">
       <h1>JUGADOR Y<br><span>DISEÑADOR</span><br>JUNTOS PARA<br><span>CREAR MUNDOS</span><br><span class="accent large">INCREÍBLES.</span></h1>
       <p class="subtext">Diseño sistemas, espacios y relatos para que cada jugador encuentre su propia forma de habitarlos.</p>
     </div>
 
-    <!-- PROYECTOS SLIDER - RESTAURADO CON IMÁGENES -->
     <div class="slider-container">
       <button class="arrow-left" aria-label="Anterior" id="prev-btn">←</button>
       
       <div id="project-slider" class="slider">
-        <!-- Proyecto 1: Panzerdrifter -->
         <div class="slide" data-id="01">
           <div class="slide-content">
             <img src="assets/PanzerdrifterCaptura.png" alt="Panzerdrifter" />
@@ -31,7 +28,6 @@
           </div>
         </div>
 
-        <!-- Proyecto 2: Mentirosos -->
         <div class="slide" data-id="02">
           <div class="slide-content">
             <img src="assets/MentirososCaptura.png" alt="Mentirosos" />
@@ -42,7 +38,6 @@
           </div>
         </div>
 
-        <!-- Proyecto 3: Teeny Tiny Squids -->
         <div class="slide" data-id="03">
           <div class="slide-content">
             <img src="assets/TTSICaptura.png" alt="Teeny Tiny Squids Invasion" />
@@ -53,7 +48,6 @@
           </div>
         </div>
 
-        <!-- Proyecto 4: Bar Espacial -->
         <div class="slide" data-id="04">
           <div class="slide-content">
             <img src="assets/BarEspacialCaptura.png" alt="Bar Espacial" />
@@ -67,23 +61,17 @@
       
       <button class="arrow-right" aria-label="Siguiente" id="next-btn">→</button>
 
-      <!-- MODAL CONTAINER -->
       <div id="modal-overlay" class="modal-overlay"></div>
     </div>
 
-    <!-- NAVEGACIÓN -->
     <nav class="navbar">
       <a href="#inicio" class="nav-link active">INICIO</a>
       <a href="#sobre-mi" class="nav-link">SOBRE MÍ</a>
       <a href="#cv" class="nav-link">CV + CAPABILITIES</a>
       <a href="#contacto" class="nav-link">CONTACTO</a>
     </nav>
-
-    <!-- SCROLL TEXT (ELIMINADO SEGÚN INSTRUCCIONES) -->
-    <!-- <div class="scroll-indicator">Scroll to explore</div> -->
   </section>
 
-  <!-- SECTION 02: SOBRE MÍ -->
   <section id="sobre-mi" class="about">
     <div class="profile-photo">
       <img src="assets/ImagenIsmael.png" alt="Ismael Pérez" />
@@ -99,19 +87,16 @@
     </div>
   </section>
 
-  <!-- SECTION 03: CV + CAPABILITIES -->
   <section id="cv" class="cv">
     <div class="header">
       <h1 class="main-title">Lo que llevo<br><span class="accent">a la mesa.</span></h1>
       
-      <!-- FIX: Botón de descarga con enlace real a PDF -->
-      <div class="download-button" id="download-cv-btn">
+      <a href="assets/CV-Ismael-Perez.pdf" download="CV-Ismael-Perez.pdf" class="download-button">
         <span>Descargar CV</span>
-        <span>PDF · próximamente</span>
-      </div>
+        <span>PDF</span>
+      </a>
     </div>
 
-    <!-- EXPERIENCIA -->
     <div class="experience">
       <div class="exp-item">
         <span class="year">2022</span>
@@ -141,11 +126,9 @@
       </div>
     </div>
 
-    <!-- TOOLKIT CON ANIMACIÓN AL SCROLL -->
     <div class="toolkit">
       <h3>Toolkit / always learning</h3>
 
-      <!-- Progress Bars con data-width -->
       <div class="skill-item">
         <span>Diseño de sistemas</span>
         <div class="progress-bar"><div class="fill" data-width="96%"></div></div>
@@ -167,39 +150,32 @@
         <span style="color:#96ff00;">90%</span>
       </div>
 
-      <!-- ESPECIAL INTERÉS -->
       <div class="special-interest">
         <h3>ESPECIAL INTERÉS</h3>
         <p>Worldbuilding y narrativa · Modelado y texturizado 3D · Diseño de juegos · <strong>Artista de Escenarios</strong></p>
       </div>
 
-      <!-- CAPACIDADES -->
       <div class="capacidades">
         <h3>CAPACIDADES</h3>
         <p>Documentación GDD · Programación C# · UX/UI · Mecánicas y sistemas · Animación · Rigging</p>
       </div>
 
-      <!-- SOFTWARE -->
       <div class="software-grid">
         <span>Unity</span><span>3ds Max</span><span>Maya</span><span>ZBrush</span><span>Houdini</span><span>C#</span><span>Substance Painter</span><span>Substance Designer</span><span>Photoshop</span><span>Illustrator</span><span>Blender</span><span>Figma</span>
       </div>
     </div>
   </section>
 
-  <!-- SECTION 04: CONTACTO - REDESIGNADO -->
   <section id="contacto" class="contact">
-    <!-- FIX: Eliminada etiqueta chapter-label duplicada -->
     
     <h1>CONTACTO<br><span class="accent">Hablemos de proyectos.</span></h1>
 
-    <!-- Email principal funcional -->
     <a href="mailto:ismaeluniperez@gmail.com?subject=Contacto%20desde%20Portfolio" class="email-button">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="#333"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L5 20c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4v14H4V8h16z"/></svg>
       <span>ismaeluniperez@gmail.com</span>
       <svg width="16" height="16" viewBox="0 0 24 24" fill="#333"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
     </a>
 
-    <!-- Botón copiar correo (opcional) -->
     <button type="button" id="copy-email-btn" class="email-copy-button">Copiar email</button>
   </section>
 

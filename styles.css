@@ -103,20 +103,16 @@ h1, h2, h3 {
   transition: all 0.3s ease;
 }
 
-.arrow-left:hover, .arrow-right:hover {
+.arrow-left:hover,
+.arrow-right:hover {
   background: rgba(255, 0, 105, 0.8);
   transform: translateY(-50%) scale(1.1);
 }
 
 /* RESPONSIVE FLEJAS - AREA TACTIL MINIMA DE 44x44 */
 @media (max-width: 768px) {
-  .arrow-left, .arrow-right {
-    left: 0.75rem; /* FIX: dentro del área visible */
-    right: 0.75rem; /* FIX: dentro del área visible */
-    padding: 0.6rem 0.9rem; /* FIX: area táctil mínima */
-    min-width: 44px;
-    min-height: 44px;
-  }
+  .arrow-left { left: 0.75rem; right: auto; padding: 0.6rem 0.9rem; }
+  .arrow-right { right: 0.75rem; left: auto; padding: 0.6rem 0.9rem; }
 }
 
 /* SLIDER */
@@ -704,4 +700,11 @@ h1, h2, h3 {
   .modal-content {
     padding: clamp(0.8rem, 3vw, 1.5rem);
   }
+}
+
+/* Botones deshabilitados en modales */
+.btn-modal.disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
 }
