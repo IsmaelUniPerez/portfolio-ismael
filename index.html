@@ -15,11 +15,55 @@
       <p class="subtext">Diseño sistemas, espacios y relatos para que cada jugador encuentre su propia forma de habitarlos.</p>
     </div>
 
-    <!-- PROYECTOS SLIDER -->
+    <!-- PROYECTOS SLIDER - RESTAURADO CON IMÁGENES -->
     <div class="slider-container">
       <button class="arrow-left" aria-label="Anterior" id="prev-btn">←</button>
       
-      <div id="project-slider" class="slider"></div>
+      <div id="project-slider" class="slider">
+        <!-- Proyecto 1: Panzerdrifter -->
+        <div class="slide" data-id="01">
+          <div class="slide-content">
+            <img src="assets/PanzerdrifterCaptura.png" alt="Panzerdrifter" />
+          </div>
+          <div class="slide-info">
+            <h3>PANZERDRIFTER</h3>
+            <p>Combat racing • 1º año</p>
+          </div>
+        </div>
+
+        <!-- Proyecto 2: Mentirosos -->
+        <div class="slide" data-id="02">
+          <div class="slide-content">
+            <img src="assets/MentirososCaptura.png" alt="Mentirosos" />
+          </div>
+          <div class="slide-info">
+            <h3>MENTIROSOS</h3>
+            <p>Card game • 2º año</p>
+          </div>
+        </div>
+
+        <!-- Proyecto 3: Teeny Tiny Squids -->
+        <div class="slide" data-id="03">
+          <div class="slide-content">
+            <img src="assets/TTSICaptura.png" alt="Teeny Tiny Squids Invasion" />
+          </div>
+          <div class="slide-info">
+            <h3>TEENY TINY SQUIDS INVASION</h3>
+            <p>Tower defense • 3º año</p>
+          </div>
+        </div>
+
+        <!-- Proyecto 4: Bar Espacial -->
+        <div class="slide" data-id="04">
+          <div class="slide-content">
+            <img src="assets/BarEspacialCaptura.png" alt="Bar Espacial" />
+          </div>
+          <div class="slide-info">
+            <h3>BAR ESPACIAL</h3>
+            <p>Proyecto individual • TFC</p>
+          </div>
+        </div>
+      </div>
       
       <button class="arrow-right" aria-label="Siguiente" id="next-btn">→</button>
 
@@ -35,7 +79,7 @@
       <a href="#contacto" class="nav-link">CONTACTO</a>
     </nav>
 
-    <!-- SCROLL TEXT - INTEGRADO DESPUÉS DEL TÍTULO -->
+    <!-- SCROLL TEXT -->
     <div class="scroll-indicator">Scroll to explore</div>
   </section>
 
@@ -95,29 +139,29 @@
       </div>
     </div>
 
-    <!-- TOOLKIT -->
+    <!-- TOOLKIT CON ANIMACIÓN AL SCROLL -->
     <div class="toolkit">
       <h3>Toolkit / always learning</h3>
 
-      <!-- Progress Bars -->
+      <!-- Progress Bars con data-width -->
       <div class="skill-item">
         <span>Diseño de sistemas</span>
-        <div class="progress-bar"><div class="fill" style="width:96%;"></div></div>
+        <div class="progress-bar"><div class="fill" data-width="96%"></div></div>
         <span style="color:#96ff00;">96%</span>
       </div>
       <div class="skill-item">
         <span>Diseño de niveles</span>
-        <div class="progress-bar"><div class="fill" style="width:88%;"></div></div>
+        <div class="progress-bar"><div class="fill" data-width="88%"></div></div>
         <span style="color:#96ff00;">88%</span>
       </div>
       <div class="skill-item">
         <span>Prototipado</span>
-        <div class="progress-bar"><div class="fill" style="width:92%;"></div></div>
+        <div class="progress-bar"><div class="fill" data-width="92%"></div></div>
         <span style="color:#96ff00;">92%</span>
       </div>
       <div class="skill-item">
         <span>Documentación GDD</span>
-        <div class="progress-bar"><div class="fill" style="width:90%;"></div></div>
+        <div class="progress-bar"><div class="fill" data-width="90%"></div></div>
         <span style="color:#96ff00;">90%</span>
       </div>
 
@@ -140,17 +184,22 @@
     </div>
   </section>
 
-  <!-- SECTION 04: CONTACTO -->
+  <!-- SECTION 04: CONTACTO - REDESIGNADO -->
   <section id="contacto" class="contact">
     <p class="chapter-label">CONTACTO</p>
-    <h1>Hablemos de<br><span class="accent large">algo increíble.</span></h1>
+    <h1>CONTACTO<br><span class="accent">Hablemos de proyectos.</span></h1>
 
-    <!-- Corrección: link funcional al email -->
-    <a href="mailto:ismaeluniperez@gmail.com" class="email-button">
+    <!-- Email principal funcional -->
+    <a href="mailto:ismaeluniperez@gmail.com?subject=Contacto%20desde%20Portfolio" class="email-button">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="#333"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L5 20c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4v14H4V8h16z"/></svg>
       <span>ismaeluniperez@gmail.com</span>
       <svg width="16" height="16" viewBox="0 0 24 24" fill="#333"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
     </a>
+
+    <!-- Botón copiar correo (opcional) -->
+    <div class="email-copy-button" onclick="copyEmail()">
+      <span>Copiar email</span>
+    </div>
   </section>
 
   <script src="script.js"></script>

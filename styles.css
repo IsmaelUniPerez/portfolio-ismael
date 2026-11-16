@@ -79,10 +79,14 @@ h1, h2, h3 {
   margin-top: 1rem;
 }
 
-/* SLIDER CONTAINER CON FLEJAS CORRECTAMENTE POSICIONADAS */
+/* SLIDER CONTAINER CON MEJORAS DE LAYOUT */
 .slider-container {
   position: relative;
-  margin-top: 4rem;
+  margin: 3rem auto; /* FIX: centrado horizontalmente */
+  padding: 1.5rem;
+  border-radius: 12px;
+  background: rgba(17, 17, 17, 0.8);
+  max-width: 1100px;
   overflow: hidden;
 }
 
@@ -107,11 +111,15 @@ h1, h2, h3 {
   transform: translateY(-50%) scale(1.1);
 }
 
-.arrow-left { 
-  left: 1.5rem; /* FIX: dentro del área visible */
-}
-.arrow-right { 
-  right: 1.5rem; /* FIX: dentro del área visible */
+/* RESPONSIVE FLEJAS - AREA TACTIL MINIMA DE 44x44 */
+@media (max-width: 768px) {
+  .arrow-left, .arrow-right {
+    left: 0.75rem; /* FIX: dentro del área visible */
+    right: 0.75rem; /* FIX: dentro del área visible */
+    padding: 0.6rem 0.9rem; /* FIX: area táctil mínima */
+    min-width: 44px;
+    min-height: 44px;
+  }
 }
 
 /* SLIDER */
@@ -132,57 +140,168 @@ h1, h2, h3 {
   min-width: 100%;
   position: relative;
   cursor: pointer;
+  overflow: hidden;
 }
 
 /* FIX: Imagen con width 100% y height auto */
 .slide img {
   width: 100%; /* FIX: no más 100vw */
-  height: auto;
-  min-height: 350px;
-  max-height: 60vh;
-  object-fit: contain;
-  filter: grayscale(100%) contrast(1.2);
-  transition: filter 0.5s ease, transform 0.3s ease;
+  height: 55vh;
+  object-fit: cover;
+  display: block;
 }
 
-.slide:hover img {
-  filter: grayscale(0%);
+/* INFO BLOQUE SUPERPUESTO EN LA PARTE INFERIOR */
+.slide-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: clamp(1.5rem, 4vw, 2rem) clamp(1.5rem, 4vw, 2rem);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+  color: #fff;
 }
 
-/* NAVBAR CON Z-INDEX CORRECTO */
-.navbar {
+.slide-info h3 {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  margin-bottom: 0.5rem;
+}
+
+.slide-info p {
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+  color: #ccc;
+}
+
+/* ============================================
+   MODAL STYLES (RESPONSIVE) - ESTRUCTURA COMPLETA
+============================================= */
+.modal-overlay {
   position: fixed;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--modal-overlay);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: clamp(1rem, 2vw, 2rem);
+}
+
+.modal-overlay.active {
   display: flex;
-  gap: 1.5rem;
-  background: rgba(17, 17, 17, 0.85); /* FIX: fondo oscuro para visibilidad */
-  padding: 1rem 2rem;
-  border-radius: 50px;
-  backdrop-filter: blur(8px);
-  z-index: 1000; /* FIX: por encima de todo */
-  border: 1px solid rgba(255, 255, 255, 0.15); /* FIX: borde para contraste */
 }
 
-.nav-link {
-  color: #999;
+#project-modal {
+  position: relative;
+  background-color: var(--black);
+  border-radius: 8px;
+  overflow: hidden;
+  max-width: 1200px;
+  width: 90%;
+  height: 85vh;
+  display: flex;
+  max-height: 90vh;
+}
+
+.modal-image-container {
+  flex: 1.5;
+  overflow: hidden;
+  position: relative;
+  background-color: #0a0a0a;
+  min-height: 200px;
+}
+
+.modal-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.modal-content {
+  flex: 1;
+  padding: clamp(2rem, 5vw, 3rem);
+  overflow-y: auto;
+  min-width: 300px;
+  position: relative;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: #fff;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.modal-close-btn:hover {
+  opacity: 1;
+}
+
+.modal-title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.modal-meta {
+  color: var(--green-neon);
+  font-size: clamp(0.8rem, 2vw, 1rem);
+  margin-bottom: 2rem;
+}
+
+.modal-description {
+  font-size: clamp(1rem, 2.5vw, 1.1rem);
+  color: #ccc;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+/* Botones del modal */
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.btn-modal {
+  padding: 0.8rem 1.5rem;
+  border-radius: 6px;
   text-decoration: none;
-  font-size: clamp(0.75rem, 2vw, 0.85rem);
-  letter-spacing: 1px;
-  transition: color 0.3s ease;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  display: inline-block;
 }
 
-.nav-link.active, .nav-link:hover {
-  color: var(--pink);
+.btn-gdd {
+  background-color: #1a1a1a;
+  color: var(--green-neon);
+  border: 1px solid var(--green-neon);
 }
 
-/* SCROLL INDICATOR - INTEGRADO DESPUÉS DEL TÍTULO */
-.scroll-indicator {
-  position: static; /* FIX: no más absoluto que chocaba con navbar */
-  margin-top: 2rem;
-  font-size: clamp(0.7rem, 1.5vw, 0.8rem);
-  color: #777;
+.btn-gdd:hover {
+  background-color: rgba(150, 255, 0, 0.1);
+}
+
+.btn-itch {
+  background-color: var(--pink);
+  color: #fff;
+  border: none;
+}
+
+.btn-itch:hover {
+  background-color: #d9005a;
 }
 
 /* ============================================
@@ -347,7 +466,8 @@ h1, h2, h3 {
 
 .fill {
   height: 100%;
-  background-color: var(--pink);
+  width: 0%; /* INICIO en 0% para animación */
+  transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .special-interest, .capacidades {
@@ -382,137 +502,125 @@ h1, h2, h3 {
 }
 
 /* ============================================
-   SECCIÓN 04: CONTACTO
+   SECCIÓN 04: CONTACTO - REDESIGNADO
 ============================================= */
 #contacto {
-  background-color: var(--pink);
+  background-color: #0b0b0b; /* NEGRO EN LUGAR DE ROSA */
   padding: 6rem 2rem;
   text-align: center;
+  border-top: 1px solid #222; /* BORDE SUPERIOR SUTIL */
 }
 
 .contact h1 {
   font-size: clamp(3rem, 8vw, 5rem);
   line-height: 1;
   margin-bottom: 4rem;
-  color: #fff; /* FIX: texto blanco para legibilidad */
+  color: #ffffff; /* BLANCO */
 }
 
-/* FIX: Botón de email con link funcional */
+/* FIX: Botón de email con alto contraste */
 .email-button {
   display: inline-flex;
   align-items: center;
-  background: #fff;
-  border: 1px solid #000;
+  background-color: #ff0069; /* FONDO ROSA NEÓN */
+  border: 1px solid #ff0069;
   padding: 1.5rem 2rem;
   font-size: 1rem;
   letter-spacing: 0.05em;
   cursor: pointer;
   text-decoration: none; /* FIX: no más underline */
   transition: background 0.3s ease;
+  color: #fff;
+  margin-bottom: 2rem;
 }
 
 .email-button:hover {
-  background: #f9f9f9;
+  background-color: #d9005a;
 }
 
 /* SVG icons con colores visibles */
 .email-button svg path {
-  fill: #333 !important; /* FIX: sobreescritura para visibilidad */
+  fill: #ffffff !important; /* FIX: sobreescritura para visibilidad */
+}
+
+/* Botón copiar email (opcional) */
+.email-copy-button {
+  background-color: #1a1a1a;
+  border: 1px solid var(--pink);
+  padding: 0.8rem 1.5rem;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.email-copy-button:hover {
+  background-color: rgba(255, 0, 105, 0.1);
 }
 
 /* ============================================
-   MODAL STYLES (RESPONSIVE)
+   RESPONSIVE GENERAL - PADDING LATERAL GLOBAL
 ============================================= */
-.modal-overlay {
+#inicio, #sobre-mi, #cv, #contacto {
+  padding-left: clamp(1.25rem, 5vw, 4rem); /* FIX: márgenes laterales */
+  padding-right: clamp(1.25rem, 5vw, 4rem);
+}
+
+@media (max-width: 600px) {
+  #inicio, #sobre-mi, #cv, #contacto {
+    padding-left: clamp(1.25rem, 5vw, 3rem);
+    padding-right: clamp(1.25rem, 5vw, 3rem);
+  }
+}
+
+/* ============================================
+   NAVBAR RESPONSIVE - MOVIL < 600px
+============================================= */
+.navbar {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: var(--modal-overlay);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-  padding: clamp(1rem, 2vw, 2rem);
-}
-
-.modal-overlay.active {
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-}
-
-#project-modal {
-  position: relative;
-  background-color: var(--black);
-  border-radius: 8px;
-  overflow: hidden;
-  max-width: 1200px;
-  width: 90%;
-  height: 85vh;
-  display: flex;
-  max-height: 90vh;
-}
-
-.modal-image-container {
-  flex: 1.5;
-  overflow: hidden;
-  position: relative;
-}
-
-.modal-image-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
-}
-
-.modal-content {
-  flex: 1;
-  padding: clamp(2rem, 5vw, 3rem);
-  overflow-y: auto;
-  min-width: 300px;
-  position: relative;
-}
-
-.modal-close-btn {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  font-size: clamp(1.5rem, 3vw, 2rem);
-  color: #fff;
-  background: none;
-  border: none;
-  cursor: pointer;
+  gap: 1.5rem;
+  background: rgba(17, 17, 17, 0.85);
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  backdrop-filter: blur(8px);
   z-index: 1000;
-  opacity: 0.8;
-  transition: opacity 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-.modal-close-btn:hover {
-  opacity: 1;
+.nav-link {
+  color: #999;
+  text-decoration: none;
+  font-size: clamp(0.75rem, 2vw, 0.85rem);
+  letter-spacing: 1px;
+  transition: color 0.3s ease;
+  white-space: nowrap; /* FIX: sin desbordamiento */
 }
 
-.modal-title {
-  font-size: clamp(2rem, 5vw, 3rem);
-  line-height: 1;
-  color: #fff;
-  margin-bottom: 0.5rem;
+.nav-link.active, .nav-link:hover {
+  color: var(--pink);
 }
 
-.modal-meta {
-  color: var(--green-neon);
-  font-size: clamp(0.8rem, 2vw, 1rem);
-  margin-bottom: 2rem;
+/* RESPONSIVE NAVBAR < 600px */
+@media (max-width: 600px) {
+  .navbar {
+    width: calc(100% - 2rem); /* FIX: menos ancho en móvil */
+    max-width: 420px; /* FIX: límite de ancho */
+    justify-content: space-around; /* FIX: distribución equitativa */
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .nav-link {
+    font-size: clamp(0.65rem, 2vw, 0.8rem);
+  }
 }
 
-.modal-description {
-  font-size: clamp(1rem, 2.5vw, 1.1rem);
-  color: #ccc;
-  line-height: 1.6;
-  margin-bottom: 2rem;
-}
-
-/* RESPONSIVE MODAL */
+/* ============================================
+   MODAL RESPONSIVE - MÓVIL Y TABLET
+============================================= */
 @media (max-width: 768px) {
   #project-modal {
     flex-direction: column;
@@ -537,6 +645,20 @@ h1, h2, h3 {
   .modal-description {
     font-size: clamp(0.9rem, 3vw, 1rem);
   }
+
+  /* FIX: En móvil, email botón ocupa todo el ancho */
+  #contacto .email-button {
+    width: 100%;
+    max-width: 360px;
+    justify-content: center;
+    word-break: break-all;
+  }
+
+  /* FIX: Encabezado CV vertical en móvil */
+  #cv .header {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -553,50 +675,5 @@ h1, h2, h3 {
 
   .modal-content {
     padding: clamp(0.8rem, 3vw, 1.5rem);
-  }
-}
-
-/* ============================================
-   RESPONSIVE GENERAL
-============================================= */
-@media (max-width: 768px) {
-  #sobre-mi {
-    grid-template-columns: 1fr;
-  }
-
-  .experience {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .exp-item {
-    flex-direction: column;
-  }
-
-  .year {
-    width: 100%;
-  }
-  
-  #cv {
-    padding: 4rem 0;
-  }
-  
-  #sobre-mi {
-    padding: 4rem 0;
-  }
-  
-  #inicio {
-    padding-bottom: 2rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .navbar {
-    bottom: 1rem;
-    padding: 0.75rem 1.5rem;
-  }
-
-  .nav-link {
-    font-size: 0.7rem;
   }
 }
