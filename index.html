@@ -4,14 +4,14 @@
   <meta charset="UTF-8" />
   <title>Ismael Pérez - Game Designer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="styles.css?v=2" />
+  <link rel="stylesheet" href="styles.css?v=4" />
 </head>
 <body>
 
-  <section id="inicio">
+  <section id="inicio" data-lang-es="" data-lang-en="">
     <div class="hero">
       <h1>JUGADOR Y<br><span>DISEÑADOR</span><br>JUNTOS PARA<br><span>CREAR MUNDOS</span><br><span class="accent large">INCREÍBLES.</span></h1>
-      <p class="subtext">Diseño sistemas, espacios y relatos para que cada jugador encuentre su propia forma de habitarlos.</p>
+      <p class="subtext" data-lang-es="Diseño sistemas, espacios y relatos para que cada jugador encuentre su propia forma de habitarlos." data-lang-en="I design systems, spaces, and narratives so every player can find their own way to inhabit them."></p>
     </div>
 
     <div class="slider-container">
@@ -24,7 +24,7 @@
           </div>
           <div class="slide-info">
             <h3>PANZERDRIFTER</h3>
-            <p>Combat racing • 1º año</p>
+            <p data-lang-es="Combat racing • 1º año" data-lang-en="Combat racing • Year 1"></p>
           </div>
         </div>
 
@@ -34,7 +34,7 @@
           </div>
           <div class="slide-info">
             <h3>MENTIROSOS</h3>
-            <p>Card game • 2º año</p>
+            <p data-lang-es="Card game • 2º año" data-lang-en="Card game • Year 2"></p>
           </div>
         </div>
 
@@ -44,7 +44,7 @@
           </div>
           <div class="slide-info">
             <h3>TEENY TINY SQUIDS INVASION</h3>
-            <p>Tower defense • 3º año</p>
+            <p data-lang-es="Tower defense • 3º año" data-lang-en="Tower defense • Year 3"></p>
           </div>
         </div>
 
@@ -54,7 +54,7 @@
           </div>
           <div class="slide-info">
             <h3>BAR ESPACIAL</h3>
-            <p>Proyecto individual • TFC</p>
+            <p data-lang-es="Proyecto individual • TFC" data-lang-en="Individual project • Final Year Capstone"></p>
           </div>
         </div>
       </div>
@@ -65,10 +65,11 @@
     </div>
 
     <nav class="navbar">
-      <a href="#inicio" class="nav-link active">INICIO</a>
-      <a href="#sobre-mi" class="nav-link">SOBRE MÍ</a>
-      <a href="#cv" class="nav-link">CV + CAPABILITIES</a>
-      <a href="#contacto" class="nav-link">CONTACTO</a>
+      <a href="#inicio" class="nav-link active" data-lang-es="INICIO" data-lang-en="HOME">INICIO</a>
+      <a href="#sobre-mi" class="nav-link" data-lang-es="SOBRE MÍ" data-lang-en="ABOUT ME">SOBRE MÍ</a>
+      <a href="#cv" class="nav-link" data-lang-es="CV + CAPABILITIES" data-lang-en="CAPABILITIES">CV + CAPABILITIES</a>
+      <a href="#contacto" class="nav-link" data-lang-es="CONTACTO" data-lang-en="CONTACT">CONTACTO</a>
+      <button type="button" id="lang-toggle" class="lang-btn" aria-label="Cambiar idioma">EN</button>
     </nav>
   </section>
 
@@ -92,8 +93,12 @@
       <h1 class="main-title">Lo que llevo<br><span class="accent">a la mesa.</span></h1>
       
       <div class="cv-buttons">
-        <a href="assets/CV-Ismael-Perez.pdf" download="CV-Ismael-Perez.pdf" class="download-button">
+        <a href="assets/CV-Ismael-Perez.pdf" download="CV-Ismael-Perez.pdf" id="btn-download-cv-es" class="download-button">
           <span>Descargar CV</span>
+          <span>PDF</span>
+        </a>
+        <a href="assets/CV-Ismael-Perez-EN.pdf" download="CV-Ismael-Perez-EN.pdf" id="btn-download-cv-en" class="download-button">
+          <span>Download CV</span>
           <span>PDF</span>
         </a>
         <a href="https://www.artstation.com/ismaelperezrodriguez" target="_blank" rel="noopener noreferrer" class="download-button artstation-button">
@@ -185,6 +190,6 @@
     <button type="button" id="copy-email-btn" class="email-copy-button">Copiar email</button>
   </section>
 
-  <script src="script.js?v=2"></script>
+  <script src="script.js?v=4"></script>
 </body>
 </html>
